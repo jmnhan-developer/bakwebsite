@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, FormGroup, Input } from 'reactstrap';
+import { div, Row, FormGroup, Input } from 'reactstrap';
 import { Col, Button } from 'react-bootstrap'
 import ProductScreen from './ProductScreen.js'
 import { connect } from 'react-redux';
@@ -37,10 +37,8 @@ const PaiementScreen = (props) => {
     const [city, setCity] = useState('')
 
 
-
-
     return (
-        <Container >
+        <div >
             {/* <Row>
                 <Navigation />
             </Row>
@@ -119,7 +117,7 @@ const PaiementScreen = (props) => {
                     </Row>
                 </Col>
             </Row>
-        </Container >
+        </div >
     );
 }
 

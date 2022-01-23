@@ -16,126 +16,125 @@ const { exec } = require('child_process');
 
 
 
-router.post('/create-article', async function(req, res, next) {
-  console.log("hello1 req query --------------create article",req.body)
+router.post('/create-article', async function (req, res, next) {
+  console.log("hello1 req query --------------create article", req.body)
 
-    let newArticle = new articleModel({
-        title:req.body.title,
-        description:req.body.description,
-        brand:req.body.brand,
-        kidsAge:req.body.kidsAge,
-        price:req.body.price,
-        category:req.body.category,
-        subcategory:req.body.subcategory,
-        state:req.body.state,
-        sellerToken:req.body.sellerToken,
-        images:req.body.url,
-        creationDate:new Date(),
-        isVisible:true
-      })
-    
-    let result = false;
-    saveArticle = await newArticle.save()
+  let newArticle = new articleModel({
+    title: req.body.title,
+    description: req.body.description,
+    brand: req.body.brand,
+    kidsAge: req.body.kidsAge,
+    price: req.body.price,
+    category: req.body.category,
+    subcategory: req.body.subcategory,
+    state: req.body.state,
+    sellerToken: req.body.sellerToken,
+    images: req.body.url,
+    creationDate: new Date(),
+    isVisible: true
+  })
 
-    if(saveArticle){
+  let result = false;
+  saveArticle = await newArticle.save()
+
+  if (saveArticle) {
     result = true
-    }
-      res.json({result,saveArticle})
+  }
+  res.json({ result, saveArticle })
 });
 
 
-router.get('/get-all-articles', async function(req, res, next) {
+router.get('/get-all-articles', async function (req, res, next) {
 
+  let products = await articleModel.find({ isVisible: true }).sort({ creationDate: -1 })
+  // console.log(products)
+  res.json({ products });
 
-    let products = await articleModel.find({isVisible:true}).sort({creationDate:-1})
-    // console.log(products)
-    res.json({products});
-  
 });
 
 
-router.post('/upload', async function(req, res, next) {
+router.post('/upload', async function (req, res, next) {
 
-console.log("hello1 req query upload", req.query)
+  console.log("hello1 req query upload", req.query)
 
-  var imagePath = './tmp/ '+uniqid()+'avatar.jpg'
-  console.log("hello2-------------- imagePath",imagePath)
+  var imagePath = './tmp/ ' + uniqid() + 'avatar.jpg'
+  console.log("hello2-------------- imagePath", imagePath)
 
   var resultCopy = await req.files.avatar.mv(imagePath);
-    console.log("fichiers",req.files.avatar)
-    console.log("hello3-----------resultCopy", resultCopy)
+  console.log("fichiers", req.files.avatar)
+  console.log("hello3-----------resultCopy", resultCopy)
 
-  if(!resultCopy) {    
+  if (!resultCopy) {
     var resultCloudinary = await cloudinary.uploader.upload(imagePath);
     res.json(resultCloudinary);
-    console.log("hello4 ----------- resultCloudinary",resultCloudinary)
+    console.log("hello4 ----------- resultCloudinary", resultCloudinary)
   } else {
-    res.json( {error:resultCopy} );
-  } 
+    res.json({ error: resultCopy });
+  }
 
   fs.unlinkSync(imagePath);
 });
 
-router.get('/filter-articles', async function(req, res, next) {
-  console.log('sub cat from filter',req.query.subcat)
-  let products = await articleModel.find({subcategory:req.query.subcat,isVisible:true}).sort({creationDate:-1})
+router.get('/filter-articles', async function (req, res, next) {
+  console.log('sub cat from filter', req.query.subcat)
+  let products = await articleModel.find({ subcategory: req.query.subcat, isVisible: true }).sort({ creationDate: -1 })
   console.log(products)
-  res.json({products})
-  
-}); 
+  res.json({ products })
 
-router.get('/get-article-by-seller', async function(req, res, next) {
+});
+
+router.get('/get-article-by-seller', async function (req, res, next) {
 
   console.log(req.query)
-  let products = await articleModel.find({sellerToken:req.query.SellerToken}).sort({creationDate:-1}) 
-  console.log('product by seller-----------------',products)
-  res.json({products});
+  let products = await articleModel.find({ sellerToken: req.query.SellerToken }).sort({ creationDate: -1 })
+  console.log('product by seller-----------------', products)
+  res.json({ products });
 
 });
 
 
 
-router.get('/get-article-by-buyer', async function(req, res, next) {
+router.get('/get-article-by-buyer', async function (req, res, next) {
 
-console.log('route get article by buyer',req.query)
- 
-var order = await orderModel.find({clientId:req.query.buyerToken});
+  console.log('route get article by buyer', req.query)
 
-console.log(order);
+  var order = await orderModel.find({ clientId: req.query.buyerToken });
 
-var articlesTab=[];
-var articlesTabValidate=[];
-for (var i=0;i<order.length;i++){ 
-if(order[i].orderState=='En cours'){ 
-var articles= await articleModel.findOne({_id:order[i].articleId})
-articlesTab.push(articles);
- } else {
-var articles= await articleModel.findOne({_id:order[i].articleId})
-articlesTabValidate.push(articles);
- } 
-}
+  console.log(order);
 
-console.log(articlesTab);
-console.log(articlesTabValidate);
-  
-res.json({articlesTab,articlesTabValidate});
+  var articlesTab = [];
+  var articlesTabValidate = [];
+  for (var i = 0; i < order.length; i++) {
+    if (order[i].orderState == 'En cours') {
+      var articles = await articleModel.findOne({ _id: order[i].articleId })
+      articlesTab.push(articles);
+    } else {
+      var articles = await articleModel.findOne({ _id: order[i].articleId })
+      articlesTabValidate.push(articles);
+    }
+  }
+
+  console.log(articlesTab);
+  console.log(articlesTabValidate);
+
+  res.json({ articlesTab, articlesTabValidate });
 });
 // ---------------- travail sur route delete dans mes annonces
 
-router.post('/cancel-article', async function(req, res, next) {
+router.post('/cancel-article', async function (req, res, next) {
 
-  var returnDb = await articleModel.deleteOne({ _id: req.body.idArticle})
-  console.log('------requ body-----------------',returnDb)
- 
+  var returnDb = await articleModel.deleteOne({ _id: req.body.idArticle })
+  console.log('------requ body-----------------', returnDb)
+
 
   var result = false
-  if(returnDb.deletedCount == 1){
+  if (returnDb.deletedCount == 1) {
     result = true
   }
 
-  res.json({result})
+  res.json({ result })
 });
 
 // ---------------- fin travail sur route delete dans mes annonces
 
-module.exports = router; 
+module.exports = router;

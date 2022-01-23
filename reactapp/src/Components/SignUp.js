@@ -1,5 +1,5 @@
 import React, { useState, useEffect, MenuItem } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input, div } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Navigation from './Nav.js'
@@ -60,7 +60,7 @@ function SignUp({ onSubmitToken }) {
 
 
     return (
-        <Container>
+        <div>
             <Navigation />
             <Filter />
             <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -118,7 +118,7 @@ function SignUp({ onSubmitToken }) {
                     <Link to ="/SignIn">J'ai déjà un compte</Link>
                 </Form>
             </Row>
-        </Container>
+        </div>
     );
 }
 

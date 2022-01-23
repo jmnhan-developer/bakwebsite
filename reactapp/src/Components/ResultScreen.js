@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle, Button, Col, Row, Container } from 'reactstrap';
+import { Card, CardText, CardBody, CardImg, CardTitle, CardSubtitle, Button, Col, Row, div } from 'reactstrap';
 import { connect } from 'react-redux';
 import Navigation from './Nav.js'
 import Filter from "./Filter.js"
@@ -41,14 +41,14 @@ function ResultScreen(props) {
 
 
     return (
-        <Container>
+        <div>
             <Navigation />
             <Filter />
             <h4>Résultats de votre recherche</h4>
             <Row>
                 {searchProduct}
             </Row>
-        </Container>
+        </div>
     );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Col, Row, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
+import { Col, Row, Button, Form, FormGroup, Label, Input, div } from 'reactstrap';
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import Navigation from './Nav.js'
@@ -49,7 +49,7 @@ function SignIn ({onSubmitToken}){
 
 
     return (
-        <Container>
+        <div>
             <Navigation />
             <Filter />
             <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -72,7 +72,7 @@ function SignIn ({onSubmitToken}){
                     <Button onClick={() => handleSubmitSignin()} style={{ fontSize: 15, color: "white", backgroundColor: "#16bfc4", border: "none" }}>Me connecter</Button>
                 </Form>
             </Row>
-        </Container>
+        </div>
     );
 }
 

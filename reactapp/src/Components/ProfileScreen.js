@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row } from 'reactstrap';
+import { div, Row } from 'reactstrap';
 import UpDateProfile from './UpDateProfile.js'
 import Navigation from './Nav.js'
 import Filter from "./Filter.js"
@@ -14,7 +14,7 @@ function ProfileScreen(props) {
 
 
     return (
-        <Container>
+        <div>
             <Row>
                 <Navigation />
             </Row>
@@ -24,7 +24,7 @@ function ProfileScreen(props) {
             <Row>
                 <UpDateProfile />
             </Row>
-        </Container>
+        </div>
 
 
     )
