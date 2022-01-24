@@ -68,8 +68,11 @@ function Homescreen({ token, onSubmitproduct }) {
 
   return (
     <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
+
       <Navigation />
+
       <Filter />
+      
       <Col
         xs={12}
         style={{

@@ -146,7 +146,7 @@ function Filter(props) {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     fontSize: 12,
     color: "#16bfc4",
     backgroundColor: "#ffffff",
@@ -157,7 +157,7 @@ function Filter(props) {
   };
 
   return (
-    <div >
+    <div>
       <Row
         style={{
           Display: "flex",
@@ -165,6 +165,8 @@ function Filter(props) {
           alignItems: "center",
           justifyContent: "flex-start",
           flexWrap: "wrap",
+					marginTop:10,
+					marginBottom:15
         }}
       >
         <Button

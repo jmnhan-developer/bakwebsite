@@ -129,12 +129,12 @@ function SellScreen(props) {
 
   return (
     <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
-			
+
       <Navigation />
 
       <Filter />
 
-      <Row>
+      <Row style={styleRow}>
         <p
           style={{
             fontWeight: "bold",
@@ -296,6 +296,7 @@ function SellScreen(props) {
             color: "white",
             backgroundColor: "#16bfc4",
             border: "none",
+						marginBottom: 20,
           }}
           onClick={() => {
             handleClick();
