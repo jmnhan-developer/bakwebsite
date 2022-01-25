@@ -23,10 +23,8 @@ function SignUp({ onSubmitToken }) {
   const [address, setAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
-  const [isConnect, setIsConnect] = useState(false);
-  const [isNotConnect, setIsNotConnect] = useState("");
+
   const [token, setToken] = useState("");
-  const [tokenIsSubmited, setTokenIsSubmited] = useState(false);
 
   const [userExists, setUserExists] = useState(false);
   const [listErrorsSignup, setErrorsSignup] = useState([]);
@@ -51,19 +49,24 @@ function SignUp({ onSubmitToken }) {
 
     const dataConsumers = await dataUsers.json();
 
-    setIsConnect(dataConsumers.result);
-    setIsNotConnect(dataConsumers.error);
-    console.log("token from signUpScreen", dataConsumers.saveUser.token);
-    onSubmitToken(dataConsumers.saveUser.token);
+    if (dataConsumers.result === true) {
+      onSubmitToken(dataConsumers.token);
+      setUserExists(true);
+    } else {
+      setErrorsSignup(dataConsumers.error);
+    }
   };
 
-  if (isConnect === true) {
+  if (userExists) {
     return <Redirect to="/" />;
   }
 
+  var tabErrorsSignup = listErrorsSignup.map((error, i) => {
+    return <p style={{ fontSize: 12, color: "red" }}>{error}</p>;
+  });
+
   return (
     <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
-
       <Navigation />
 
       <Filter />
@@ -83,19 +86,27 @@ function SignUp({ onSubmitToken }) {
         <Col xs="12" md="6">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="text">Prénom</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setFirstName(e.target.value)}
-              type="text" name="prénom" id="prénom" placeholder="Prénom"
-            </Input>
+              type="text"
+              name="prénom"
+              id="prénom"
+              placeholder="Prénom"
+            />
           </FormGroup>
         </Col>
         <Col xs="12" md="6">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="text"> Nom</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setLastName(e.target.value)}
-              type="text" name="nom" id="nom" placeholder="Nom"
-            </Input>
+              type="text"
+              name="nom"
+              id="nom"
+              placeholder="Nom"
+            />
           </FormGroup>
         </Col>
       </Row>
@@ -103,20 +114,27 @@ function SignUp({ onSubmitToken }) {
         <Col xs="12" md="6">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="text">E-mail</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setMail(e.target.value)}
-              type="email" name="email" id="email" placeholder="e-mail"
-            </Input>
+              type="email"
+              name="email"
+              id="email"
+              placeholder="e-mail"
+            />
           </FormGroup>
         </Col>
         <Col xs="12" md="6">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="text">Password</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setPassword(e.target.value)}
-              type="password" name="password" id="examplePassword"
+              type="password"
+              name="password"
+              id="examplePassword"
               placeholder="password"
-            </Input>
+            />
           </FormGroup>
         </Col>
       </Row>
@@ -125,10 +143,14 @@ function SignUp({ onSubmitToken }) {
         <Col xs="12">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="text">Adresse</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setAddress(e.target.value)}
-              type="text" name="adresse" id="adresse" placeholder="Adresse"
-            </Input>
+              type="text"
+              name="adresse"
+              id="adresse"
+              placeholder="Adresse"
+            />
           </FormGroup>
         </Col>
       </Row>
@@ -136,22 +158,29 @@ function SignUp({ onSubmitToken }) {
         <Col xs="12" md="6">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="texte">Code Postal</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setPostalCode(e.target.value)}
-              type="text" name="zip" id="exampleZip"
-            </Input>
+              type="text"
+              name="zip"
+              id="exampleZip"
+            />
           </FormGroup>
         </Col>
         <Col xs="12" md="6">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="text">Ville</Label>
-            <Input style={{ fontSize: 12 }}>
+            <Input
+              style={{ fontSize: 12 }}
               onChange={(e) => setCity(e.target.value)}
-              type="text" name="ville" id="ville"
-            </Input>
+              type="text"
+              name="ville"
+              id="ville"
+            />
           </FormGroup>
         </Col>
       </Row>
+      <Row style={styleRow}>{tabErrorsSignup}</Row>
       <Row style={styleRow}>
         <Button
           style={{
@@ -159,7 +188,7 @@ function SignUp({ onSubmitToken }) {
             color: "white",
             backgroundColor: "#16bfc4",
             border: "none",
-            marginBottom: 20
+            marginBottom: 20,
           }}
           onClick={() => handleSubmitSignup()}
         >

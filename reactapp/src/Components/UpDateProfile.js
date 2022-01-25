@@ -1,109 +1,151 @@
-import React, { useState, useEffect } from 'react';
-import { Row, Input } from 'reactstrap';
-import { Col } from 'react-bootstrap'
-import { connect } from 'react-redux';
-
-
-
+import React, { useState, useEffect } from "react";
+import { Row, Input } from "reactstrap";
+import { Col } from "react-bootstrap";
+import { connect } from "react-redux";
 
 function UpDateProfile(props) {
-
-    //RECUPERER LES INFOS DE L'USER VIA LE TOKEN POUR AFFICHER SES INFOS DANS L'ECRAN PROFILEUPDATE
-    const [userInfo, setUserInfo] = useState([])
-    console.log('token récupéré from store updateProfile',props.token)
-    useEffect(() => {
-        const findUser = async () => {
-            const rawData = await fetch(`/users/display-profile?token=${props.token}`) //l'ID ici est un objet...et non un tableau d'objets.
-            const doneData = await rawData.json()
-            console.log("done data est:", doneData)
-            setUserInfo(doneData)
-            setFirstName(doneData.firstName)
-            setLastName(doneData.lastName)
-            setMail(doneData.email)
-            setAddress(doneData.address)
-            setPostalCode(doneData.postalCode)
-            setCity(doneData.city)
-        }
-        findUser()
-    }, [])
-
-
-    //POUR RETENIR LES MODIFS ET RÉENREGISTRER LES INFOS DE L'USER DANS LA BASE DE DONNÉES
-
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setMail] = useState('')
-    const [address, setAddress] = useState('')
-    const [postalCode, setPostalCode] = useState('')
-    const [city, setCity] = useState('')
-
-
-    var handleClick = async () => {
-        const dataUsers = await fetch(`/users/update-profile?token=${props.token}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `firstName=${firstName}&lastName=${lastName}&email=${email}&address=${address}&postalCode=${postalCode}&city=${city}`
-        });
+  //RECUPERER LES INFOS DE L'USER VIA LE TOKEN POUR AFFICHER SES INFOS DANS L'ECRAN PROFILEUPDATE
+  const [userInfo, setUserInfo] = useState([]);
+  console.log("token récupéré from store updateProfile", props.token);
+  useEffect(() => {
+    const findUser = async () => {
+      const rawData = await fetch(
+        `/users/display-profile?token=${props.token}`
+      ); //l'ID ici est un objet...et non un tableau d'objets.
+      const doneData = await rawData.json();
+      console.log("done data est:", doneData);
+      setUserInfo(doneData);
+      setFirstName(doneData.firstName);
+      setLastName(doneData.lastName);
+      setMail(doneData.email);
+      setAddress(doneData.address);
+      setPostalCode(doneData.postalCode);
+      setCity(doneData.city);
     };
+    findUser();
+  }, []);
 
-    return (
-        <div>
-            <Col >
-                <Row style={{ justifyContent: "space-between", marginTop: 10 }}>
-                    <p style={{ color: "black" }}><strong>Mes coordonnées</strong></p>
-                    
-                </Row>
-                <Row>
-                    <p style={styleEcrit}>Prénom: </p>
-                    <Input style={styleBd} name="firstName" value={firstName} onChangeText={(val) => setFirstName(val)}></Input>
+  //POUR RETENIR LES MODIFS ET RÉENREGISTRER LES INFOS DE L'USER DANS LA BASE DE DONNÉES
 
-                </Row>
-                <Row>
-                    <p style={styleEcrit}>Nom: </p>
-                    <Input style={styleBd} name="lastName" value={lastName} onChangeText={(val) => setLastName(val)} ></Input>
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setMail] = useState("");
+  const [address, setAddress] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [city, setCity] = useState("");
 
-                </Row>
-                <Row>
-                    <p style={styleEcrit}>Mon e-mail: </p>
-                    <Input style={styleBd} name="email" value={email} onChangeText={(val) => setMail(val)}></Input>
+  var handleClick = async () => {
+    const dataUsers = await fetch(
+      `/users/update-profile?token=${props.token}`,
+      {
+        method: "PUT",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `firstName=${firstName}&lastName=${lastName}&email=${email}&address=${address}&postalCode=${postalCode}&city=${city}`,
+      }
+    );
+  };
 
-                </Row>
-                <Row>
-                    <p style={styleEcrit}>Adresse: </p>
-                    <Input style={styleBd} name="Address" value={address} onChangeText={(val) => setAddress(val)}></Input>
+  return (
+    <div>
+      <Row style={styleRow}>
+        <p
+          style={{
+            fontWeight: "bold",
+            fontSize: 12,
+            marginTop: 5,
+          }}
+        >
+          Mon profile
+        </p>
+      </Row>
 
-                </Row>
-                <Row>
-                    <p style={styleEcrit}>Code Postal: </p>
-                    <Input style={styleBd} name="postalCode" value={postalCode} onChangeText={(val) => setPostalCode(val)}></Input>
+      <Row style={styleRow}>
+        <Col xs="12" md="6" style={styleCol}>
+          <p style={styleP}>Prénom:</p>
+          <Input
+            style={{ fontSize: 12 }}
+            name="firstName"
+            value={firstName}
+            onChangeText={(val) => setFirstName(val)}
+          ></Input>
+        </Col>
+        <Col xs="12" md="6" style={styleCol}>
+          <p style={styleP}>Nom:</p>
+          <Input
+            style={{ fontSize: 12 }}
+            name="lastName"
+            value={lastName}
+            onChangeText={(val) => setLastName(val)}
+          ></Input>
+        </Col>
+      </Row>
 
-                </Row>
-                <Row>
-                    <p style={styleEcrit}>Ville: </p>
-                    <Input style={styleBd} name="city" value={city} onChangeText={(val) => setCity(val)}></Input>
+      <Row style={styleRow}>
+        <Col xs="12" md="6" style={styleCol}>
+          <p style={styleP}>E-mail:</p>
+          <Input
+            style={{ fontSize: 12 }}
+            name="email"
+            value={email}
+            onChangeText={(val) => setMail(val)}
+          ></Input>
+        </Col>
+        <Col xs="12" md="6" style={styleCol}>
+          <p style={styleP}>Adresse:</p>
+          <Input
+            style={{ fontSize: 12 }}
+            name="address"
+            value={address}
+            onChangeText={(val) => setAddress(val)}
+          ></Input>
+        </Col>
+      </Row>
 
-                </Row>
-            </Col>
-            <hr />
-
-        </div>
-
-
-
-    )
+      <Row style={styleRow}>
+        <Col xs="12" md="6" style={styleCol}>
+          <p style={styleP}>Code Postal:</p>
+          <Input
+            style={{ fontSize: 12 }}
+            name="postalCode"
+            value={postalCode}
+            onChangeText={(val) => setPostalCode(val)}
+          ></Input>
+        </Col>
+        <Col xs="12" md="6" style={styleCol}>
+          <p style={styleP}>Ville:</p>
+          <Input
+            style={{ fontSize: 12 }}
+            name="city"
+            value={city}
+            onChangeText={(val) => setCity(val)}
+          ></Input>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-var styleEcrit = { fontSize: 15, color: "grey", width: "20%", marginBottom: 5 }
-var styleBd = { fontSize: 15, color: "black", marginBottom: 5, width: 400, border: "none", outiline: "none", backgroundColor: "#F8F9F9" }
-var styleEcrit1 = { fontSize: 13, color: "black", width: "45%", marginBottom: 5 }
-var styleBd1 = { fontSize: 13, fontWeight: "bold", color: "black", marginBottom: 5 }
+var styleRow = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+  backgroundColor: "#F8F9F9",
+  marginLeft: 10,
+  marginRight: 10,
+};
 
+var styleCol = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "flex-start",
+  alignItems: "center",
+	marginBottom:10
+};
+
+var styleP = { width: 150, fontSize: 12, margin: 0 };
 
 function mapStateToProps(state) {
-    return { token: state.token }
+  return { token: state.token };
 }
 
-export default connect(
-    mapStateToProps,
-    null
-)(UpDateProfile);
+export default connect(mapStateToProps, null)(UpDateProfile);

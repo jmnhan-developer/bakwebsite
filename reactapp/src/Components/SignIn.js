@@ -19,7 +19,8 @@ function SignIn({ onSubmitToken }) {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
   const [isConnect, setIsConnect] = useState(false);
-  const [isNotConnect, setIsNotConnect] = useState("");
+  const [userExists, setUserExists] = useState("");
+  const [listErrorsSignin, setErrorsSignin] = useState([]);
   const [tokenIsSubmited, setTokenIsSubmited] = useState(false);
 
   // FUNCTION TO CLEAN ALL INPUTS
@@ -29,8 +30,7 @@ function SignIn({ onSubmitToken }) {
   }
 
   var handleSubmitSignin = async () => {
-    console.log("HELLO WORLD");
-
+   
     const dataUsers = await fetch(`/users/sign-in`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -39,16 +39,20 @@ function SignIn({ onSubmitToken }) {
 
     const dataConsumers = await dataUsers.json();
 
-    console.log(dataConsumers.token);
-    setIsConnect(dataConsumers.result);
-    console.log(setIsConnect);
-    setIsNotConnect(dataConsumers.error);
-    onSubmitToken(dataConsumers.token);
+    if (dataConsumers.result == true) {
+      onSubmitToken(dataConsumers.token);
+      setUserExists(true);
+    } else {
+      setErrorsSignin(dataConsumers.error);
+    }
   };
-  if (isConnect === true) {
-    console.log("HELLO WORLD", isConnect);
+  if (userExists) {
     return <Redirect to="/" />;
   }
+
+  var tabErrorsSignin = listErrorsSignin.map((error, i) => {
+    return <p style={{ fontSize: 12, color: "red" }}>{error}</p>;
+  });
 
   return (
     <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
@@ -72,10 +76,10 @@ function SignIn({ onSubmitToken }) {
         <Col xs="12" md="4">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="email">E-mail</Label>
-            <Input style={{ fontSize: 12, padding: 5 }}>
+            <Input style={{ fontSize: 12, padding: 5 }}
               onChange={(e) => setMail(e.target.value)}
               type="email" name="email" id="email" placeholder="e-mail"
-            </Input>
+            />
           </FormGroup>
         </Col>
       </Row>
@@ -83,14 +87,16 @@ function SignIn({ onSubmitToken }) {
         <Col xs="12" md="4">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="password">Password</Label>
-            <Input style={{ fontSize: 12, padding: 5 }}>
+            <Input style={{ fontSize: 12, padding: 5 }}
               onChange={(e) => setPassword(e.target.value)}
               type="password" name="password" id="examplePassword"
               placeholder="password"
-            </Input>
+            />
           </FormGroup>
         </Col>
       </Row>
+      <Row style={styleRow}>{tabErrorsSignin}</Row>
+
       <Row style={styleRow}>
         <Button
           style={{
@@ -98,7 +104,7 @@ function SignIn({ onSubmitToken }) {
             color: "white",
             backgroundColor: "#16bfc4",
             border: "none",
-            marginBottom: 20
+            marginBottom: 20,
           }}
           onClick={() => handleSubmitSignin()}
         >
