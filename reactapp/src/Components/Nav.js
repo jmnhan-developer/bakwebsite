@@ -1,11 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Row, Col, div } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import SearchBar from "./SearchBar";
+import { propTypes } from "react-bootstrap/esm/Image";
 
-function Navigation() {
+function Navigation(props) {
+
+  console.log("EST CE QU'ON A BIEN LE TOKEN", props.user );
+
+  const [goToProfile, setGoToProfile] = useState(false);
+  var infoUser = "";
+
+  if (props.user.firstName) {
+    infoUser = (
+      <p
+        style={{
+          display: "flex",
+          alignContent: "center",
+          margin: 0,
+          padding: 0,
+          fontSize: 12,
+          color: "#16bfc4",
+          borderRadius: "blue",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          setGoToProfile(true);
+        }}
+      >
+        Bonjour {props.user.firstName} !
+      </p>
+    );
+  }
+
+  
+  if (goToProfile === true) {
+    if (props.user.firstName) {
+      return <Redirect to="/ProfileScreen" />;
+    } else {
+      return <Redirect to="/signup" />;
+    }
+  }
+
+  
   return (
-    <div >
+    <div>
       <Row
         style={{
           display: "flex",
@@ -29,16 +69,7 @@ function Navigation() {
         <Col xs={6} md={4} style={{ display: "flex" }}>
           <SearchBar />
         </Col>
-        <Col
-          xs={4}
-          md={2}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingLeft: 0,
-            paddingRight: 0,
-          }}
-        >
+        <Col xs={4} md={2}>
           <Link to="/SellScreen">
             <Button
               type="button"
@@ -53,40 +84,20 @@ function Navigation() {
             </Button>
           </Link>
         </Col>
-        <Col
-          xs={4}
-          md={2}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingLeft: 0,
-            paddingRight: 0,
-          }}
-        >
+        <Col xs={4} md={2}>
           <Link to="/SignUp" style={{ fontSize: 12, borderRadius: "blue" }}>
             M'inscrire | Me connecter
           </Link>
         </Col>
-        <Col
-          xs={4}
-          md={2}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            paddingLeft: 0,
-            paddingRight: 0,
-          }}
-        >
-          <Link
-            to="/ProfileScreen"
-            style={{ fontSize: 12, borderRadius: "blue" }}
-          >
-            Mon Profile
-          </Link>
+        <Col xs={4} md={2}>
+          {infoUser}
         </Col>
       </Row>
     </div>
   );
 }
 
-export default Navigation;
+function mapStateToProps(state) {
+  return { user: state.machin };
+}
+export default connect(mapStateToProps, null)(Navigation);

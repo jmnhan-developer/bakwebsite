@@ -75,7 +75,7 @@ router.post("/sign-in", async function (req, res, next) {
   }
 
   if (error.length === 0) {
-    const user = await userModel.findOne({
+    user = await userModel.findOne({
       email: req.body.emailFromFront,
     });
 
@@ -87,7 +87,8 @@ router.post("/sign-in", async function (req, res, next) {
       
       if (passwordHash == user.password) {
         result = true;
-        token = user.token;
+        // token = user.token;
+
       } else {
         result = false;
         error.push("mot de passe incorrect");
@@ -96,6 +97,7 @@ router.post("/sign-in", async function (req, res, next) {
       error.push("email incorrect");
     }
   }
+  console.log("XXXXXXXXX", result, user, token, error)
   res.json({ result, user, token, error });
 });
 

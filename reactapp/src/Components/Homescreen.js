@@ -29,7 +29,7 @@ function Homescreen({ token, onSubmitproduct }) {
     findProducts();
   }, []);
 
-  console.log("Qu'y a t il dans cette list", productList);
+
 
   let allArticles = productList.map((e, i) => {
     return (

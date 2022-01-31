@@ -1,32 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Row, Input } from "reactstrap";
+import { div, Row, Input, Button } from "reactstrap";
 import { Col } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+import Navigation from "./Nav.js";
+import Filter from "./Filter.js";
 import { connect } from "react-redux";
 
-function UpDateProfile(props) {
-  //RECUPERER LES INFOS DE L'USER VIA LE TOKEN POUR AFFICHER SES INFOS DANS L'ECRAN PROFILEUPDATE
+
+
+function ProfileUpdate(props) {
+
+  console.log("EST CE QU'ON A BIEN LE TOKEN SUR PROFILEUPDATE", props.token)
+
   const [userInfo, setUserInfo] = useState([]);
-  console.log("token récupéré from store updateProfile", props.token);
-  useEffect(() => {
-    const findUser = async () => {
-      const rawData = await fetch(
-        `/users/display-profile?token=${props.token}`
-      ); //l'ID ici est un objet...et non un tableau d'objets.
-      const doneData = await rawData.json();
-      console.log("done data est:", doneData);
-      setUserInfo(doneData);
-      setFirstName(doneData.firstName);
-      setLastName(doneData.lastName);
-      setMail(doneData.email);
-      setAddress(doneData.address);
-      setPostalCode(doneData.postalCode);
-      setCity(doneData.city);
-    };
-    findUser();
-  }, []);
-
-  //POUR RETENIR LES MODIFS ET RÉENREGISTRER LES INFOS DE L'USER DANS LA BASE DE DONNÉES
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setMail] = useState("");
@@ -46,7 +32,13 @@ function UpDateProfile(props) {
   };
 
   return (
-    <div>
+
+    <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
+
+      <Navigation />
+
+      <Filter />
+
       <Row style={styleRow}>
         <p
           style={{
@@ -55,7 +47,7 @@ function UpDateProfile(props) {
             marginTop: 5,
           }}
         >
-          Mon profile
+          Modifier mon profile
         </p>
       </Row>
 
@@ -67,7 +59,7 @@ function UpDateProfile(props) {
             name="firstName"
             value={firstName}
             onChangeText={(val) => setFirstName(val)}
-          ></Input>
+          />
         </Col>
         <Col xs="12" md="6" style={styleCol}>
           <p style={styleP}>Nom:</p>
@@ -76,7 +68,7 @@ function UpDateProfile(props) {
             name="lastName"
             value={lastName}
             onChangeText={(val) => setLastName(val)}
-          ></Input>
+          />
         </Col>
       </Row>
 
@@ -84,20 +76,24 @@ function UpDateProfile(props) {
         <Col xs="12" md="6" style={styleCol}>
           <p style={styleP}>E-mail:</p>
           <Input
-            style={{ fontSize: 12 }}
-            name="email"
-            value={email}
-            onChangeText={(val) => setMail(val)}
-          ></Input>
+              style={{ fontSize: 12 }}
+              onChange={(e) => setMail(e.target.value)}
+              type="email"
+              name="email"
+              id="email"
+              placeholder={email}
+            />
         </Col>
         <Col xs="12" md="6" style={styleCol}>
           <p style={styleP}>Adresse:</p>
           <Input
-            style={{ fontSize: 12 }}
-            name="address"
-            value={address}
-            onChangeText={(val) => setAddress(val)}
-          ></Input>
+              style={{ fontSize: 12 }}
+              onChange={(e) => setAddress(e.target.value)}
+              type="text"
+              name="adresse"
+              id="adresse"
+              placeholder={address}
+            />
         </Col>
       </Row>
 
@@ -105,20 +101,24 @@ function UpDateProfile(props) {
         <Col xs="12" md="6" style={styleCol}>
           <p style={styleP}>Code Postal:</p>
           <Input
-            style={{ fontSize: 12 }}
-            name="postalCode"
-            value={postalCode}
-            onChangeText={(val) => setPostalCode(val)}
-          ></Input>
+              style={{ fontSize: 12 }}
+              onChange={(e) => setPostalCode(e.target.value)}
+              type="text"
+              name="zip"
+              id="exampleZip"
+              placeholder={postalCode}
+            />
         </Col>
         <Col xs="12" md="6" style={styleCol}>
           <p style={styleP}>Ville:</p>
           <Input
-            style={{ fontSize: 12 }}
-            name="city"
-            value={city}
-            onChangeText={(val) => setCity(val)}
-          ></Input>
+              style={{ fontSize: 12 }}
+              onChange={(e) => setCity(e.target.value)}
+              type="text"
+              name="ville"
+              id="ville"
+              placeholder={city}
+            />
         </Col>
       </Row>
     </div>
@@ -139,7 +139,7 @@ var styleCol = {
   flexDirection: "row",
   justifyContent: "flex-start",
   alignItems: "center",
-	marginBottom:10
+  marginBottom: 10,
 };
 
 var styleP = { width: 150, fontSize: 12, margin: 0 };
@@ -148,4 +148,4 @@ function mapStateToProps(state) {
   return { token: state.token };
 }
 
-export default connect(mapStateToProps, null)(UpDateProfile);
+export default connect(mapStateToProps, null)(ProfileUpdate);

@@ -14,11 +14,11 @@ import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
-function SignIn({ onSubmitToken }) {
+function SignIn({ onSubmitToken, onSubmitDatas }) {
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
   const [isConnect, setIsConnect] = useState(false);
+  const [userDatas, setUserDatas] = useState("");
   const [userExists, setUserExists] = useState("");
   const [listErrorsSignin, setErrorsSignin] = useState([]);
   const [tokenIsSubmited, setTokenIsSubmited] = useState(false);
@@ -29,23 +29,40 @@ function SignIn({ onSubmitToken }) {
     setPassword("");
   }
 
+  // ------ ESSAI ------
+
   var handleSubmitSignin = async () => {
-   
-    const dataUsers = await fetch(`/users/sign-in`, {
+    const data = await fetch(`/users/sign-in`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `emailFromFront=${email}&passwordFromFront=${password}`,
     });
 
-    const dataConsumers = await dataUsers.json();
+    const body = await data.json();
 
-    if (dataConsumers.result == true) {
-      onSubmitToken(dataConsumers.token);
+    if (body.result === true) {
+      onSubmitToken(body.user.token);
+      console.log("XXXX QU'EST CE QUE LE TOKEN DANS SIGNIN XXXX", body.user.token);
+      console.log("XXXX QU'EST CE QUE BODY DANS SIGNIN XXXX", body);
+      console.log("----QU'EST CE QUE DATAS DANS SIGNIN----", body.datas);
+
+      onSubmitDatas({
+        firstName: body.user.firstName,
+        lastName: body.user.lastName,
+        email: body.user.email,
+        password: body.user.password,
+        address: body.user.address,
+        postalCode: body.user.postalCode,
+        city: body.user.city,
+      });
+      console.log("----QU'EST CE QUE DATAS DANS SIGNIN----", body.user);
+
       setUserExists(true);
     } else {
-      setErrorsSignin(dataConsumers.error);
+      setErrorsSignin(body.error);
     }
   };
+
   if (userExists) {
     return <Redirect to="/" />;
   }
@@ -76,9 +93,13 @@ function SignIn({ onSubmitToken }) {
         <Col xs="12" md="4">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="email">E-mail</Label>
-            <Input style={{ fontSize: 12, padding: 5 }}
+            <Input
+              style={{ fontSize: 12, padding: 5 }}
               onChange={(e) => setMail(e.target.value)}
-              type="email" name="email" id="email" placeholder="e-mail"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="e-mail"
             />
           </FormGroup>
         </Col>
@@ -87,9 +108,12 @@ function SignIn({ onSubmitToken }) {
         <Col xs="12" md="4">
           <FormGroup style={{ fontSize: 12, padding: 5 }}>
             <Label for="password">Password</Label>
-            <Input style={{ fontSize: 12, padding: 5 }}
+            <Input
+              style={{ fontSize: 12, padding: 5 }}
               onChange={(e) => setPassword(e.target.value)}
-              type="password" name="password" id="examplePassword"
+              type="password"
+              name="password"
+              id="examplePassword"
               placeholder="password"
             />
           </FormGroup>
@@ -106,7 +130,10 @@ function SignIn({ onSubmitToken }) {
             border: "none",
             marginBottom: 20,
           }}
-          onClick={() => handleSubmitSignin()}
+          onClick={() => {
+            handleSubmitSignin();
+            clickToClean();
+          }}
         >
           Me connecter
         </Button>
@@ -128,6 +155,10 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmitToken: function (token) {
       dispatch({ type: "informationFromSignIn", token: token });
+    },
+
+    onSubmitDatas: function (argument) {
+      dispatch({ type: "getUserInfo", user: argument });
     },
   };
 }
