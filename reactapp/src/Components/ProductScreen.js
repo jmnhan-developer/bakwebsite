@@ -9,60 +9,40 @@ import Filter from "./Filter.js";
 const ProductScreen = (props) => {
   console.log(props.product);
 
-  const [goToProduct, setGoToProduct] = useState(false);
+  const [goToPayment, setGoToPayment] = useState(false);
 
-  if (goToProduct == true) {
+  if (goToPayment == true) {
     return <Redirect to="/PaiementScreen" />;
   }
 
   return (
-    <div>
-      <Row>
-        <Navigation />
-      </Row>
-      <Row>
-        <Filter />
-      </Row>
-      <Row>
+    <div style={{ margin: 10, marginBottom: 5 }}>
+      <Navigation />
+
+      <Filter />
+
+      <Row style={{marginLeft:1, marginRight:1 }}>
         <Col xs="12" lg="6">
           <Card>
             <CardImg
               alt=""
               top
-              width="400px"
+              width="100px"
               src={props.product.images}
               alt="Card image cap"
             />
           </Card>
         </Col>
         <Col xs="12" lg="6">
-          <Row style={{ alignItems: "center" }}>
-            <p style={styleEcrit}>Prix: </p>
-            <p style={styleBd}>{props.product.price}€</p>
-          </Row>
-          <hr style={{ margin: 0 }} />
-          <Row style={{ alignItems: "center" }}>
-            <p style={styleEcrit}>Mondial Realy: </p>
-            <p style={styleBd}>10,57€</p>
-          </Row>
-          <Row style={{ alignItems: "center" }}>
-            <p style={styleEcrit}>Colissimo: </p>
-            <p style={styleBd}>10,87€</p>
-          </Row>
-          <Row style={{ alignItems: "center" }}>
-            <p style={styleEcrit}>Mondial Realy: </p>
-            <p style={styleBd}>11,05€</p>
-          </Row>
-          <hr style={{ margin: 0 }} />
-          <Row style={{}}>
+          <Row>
             <p style={styleEcrit}>Catégorie du produit:</p>
             <p style={styleBd}>{props.product.subcategory}</p>
           </Row>
-          <Row style={{}}>
+          <Row>
             <p style={styleEcrit}>Marque: </p>
             <p style={styleBd}>{props.product.brand}</p>
           </Row>
-          <Row style={{}}>
+          <Row>
             <p style={styleEcrit}>État: </p>
             <p style={styleBd}>{props.product.state}</p>
           </Row>
@@ -70,16 +50,36 @@ const ProductScreen = (props) => {
             <p style={styleEcrit}>Description:</p>
             <p style={styleBd}>{props.product.description}</p>
           </Row>
+          <Row style={{ alignItems: "center" }}>
+            <p style={styleEcrit}>Prix: </p>
+            <p style={styleBd}>{props.product.price}€</p>
+          </Row>
+          <hr style={{ margin: 0 }} />
+          <Row>
+            <p style={styleEcrit}>Mondial Realy: </p>
+            <p style={styleBd}>10,57€</p>
+          </Row>
+          <Row>
+            <p style={styleEcrit}>Colissimo: </p>
+            <p style={styleBd}>10,87€</p>
+          </Row>
+          <Row>
+            <p style={styleEcrit}>Mondial Realy: </p>
+            <p style={styleBd}>11,05€</p>
+          </Row>
+          <hr style={{ margin: 0 }} />
+
           <Row style={{ display: "flex", justifyContent: "center" }}>
             <Button
               style={{
-                width: 200,
+                fontSize: 14,
+                width: 150,
                 backgroundColor: "#16bfc4",
                 border: "none",
                 marginTop: 13,
               }}
               onClick={() => {
-                setGoToProduct(true);
+                goToPayment(true);
               }}
             >
               Acheter
@@ -91,8 +91,8 @@ const ProductScreen = (props) => {
   );
 };
 
-var styleEcrit = { fontSize: 15, color: "grey", width: "30%", marginBottom: 5 };
-var styleBd = { fontSize: 15, color: "17a2b8", marginBottom: 5 };
+var styleEcrit = { fontSize: 12, color: "grey", width: "30%", marginBottom: 5 };
+var styleBd = { fontSize: 12, color: "17a2b8", marginBottom: 5 };
 
 function mapStateToProps(state) {
   return { product: state.product };

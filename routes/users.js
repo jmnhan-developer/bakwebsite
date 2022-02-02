@@ -10,6 +10,7 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
+//-----ROUTE SIGN UP-----
 router.post("/sign-up", async function (req, res, next) {
   var error = [];
   var result = false;
@@ -63,7 +64,10 @@ router.post("/sign-up", async function (req, res, next) {
   res.json({ result, saveUser, error, token });
 });
 
+
+//-----ROUTE SIGN IN-----
 router.post("/sign-in", async function (req, res, next) {
+
   console.log(req.body);
   var result = false;
   var user = null;
@@ -98,6 +102,7 @@ router.post("/sign-in", async function (req, res, next) {
     }
   }
   console.log("XXXXXXXXX", result, user, token, error)
+
   res.json({ result, user, token, error });
 });
 

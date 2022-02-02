@@ -29,18 +29,16 @@ function Homescreen({ token, onSubmitproduct }) {
     findProducts();
   }, []);
 
-
-
   let allArticles = productList.map((e, i) => {
     return (
-      <Col xs="6" md="4" lg="3" xl="2">
+      <Col xs="6" md="4" lg="3" xl="2" style={{paddingLeft: 0, paddingRight: 0}}> 
         <Card
           onClick={() => {
             setGoToProduct(true);
             onSubmitproduct(e);
           }}
           alt=""
-          style={{ marginBottom: 2 }}
+          style={{ paddingLeft: 0, paddingRight: 0, marginBottom: 2, cursor: "pointer" }}
         >
           <CardImg
             top
@@ -51,11 +49,14 @@ function Homescreen({ token, onSubmitproduct }) {
           />
           <hr style={{ marginBottom: 1 }} />
           <CardBody>
-            <CardTitle style={{ fontSize: 12 }}>{e.title}</CardTitle>
+          <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
+              {e.title}
+            </CardTitle>
             <CardSubtitle style={{ fontSize: 12 }} className="mb-2 text-muted">
               {e.price}€
             </CardSubtitle>
             <CardText style={{ fontSize: 12 }}>{e.brand}</CardText>
+            <CardText style={{ fontSize: 12 }}>{e.state}</CardText>
           </CardBody>
         </Card>
       </Col>
@@ -67,23 +68,25 @@ function Homescreen({ token, onSubmitproduct }) {
   }
 
   return (
-    <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
-
+    <div style={{margin:10, marginBottom: 5 }}>
       <Navigation />
 
       <Filter />
-      
-      <Col
-        xs={12}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: 15,
-          marginBottom: 15,
-        }}
-      >
-        <img width="100%" src="./chambrebebe.png" alt="chambrebebe" />
-      </Col>
+
+      <Row>
+        <Col
+          xs={12}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            padding: 5, 
+            marginTop: 15,
+            marginBottom: 15
+          }}
+        >
+          <img width="100%" src="./chambrebebe.png" alt="chambrebebe" />
+        </Col>
+      </Row>
 
       <Row style={{ marginLeft: 2, marginRight: 2 }}>{allArticles}</Row>
     </div>

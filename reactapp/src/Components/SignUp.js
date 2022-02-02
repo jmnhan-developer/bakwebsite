@@ -10,12 +10,13 @@ import {
   div,
 } from "reactstrap";
 import { Redirect, Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, createDispatchHook } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 import { alignPropType } from "react-bootstrap/esm/DropdownMenu";
 
-function SignUp({ onSubmitToken }) {
+function SignUp({ onSubmitToken, onSubmitDatas }) {
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setMail] = useState("");
@@ -41,19 +42,28 @@ function SignUp({ onSubmitToken }) {
   }
 
   var handleSubmitSignup = async () => {
-    const dataUsers = await fetch("/users/sign-up", {
+    const data = await fetch("/users/sign-up", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: `firstNameFromFront=${firstName}&lastNameFromFront=${lastName}&emailFromFront=${email}&passwordFromFront=${password}&addressFromFront=${address}&postalCodeFromFront=${postalCode}&cityFromFront=${city}`,
     });
 
-    const dataConsumers = await dataUsers.json();
+    const body = await data.json();
 
-    if (dataConsumers.result === true) {
-      onSubmitToken(dataConsumers.token);
+    if (body.result === true) {
+      onSubmitToken(body.saveUser.token);
+      onSubmitDatas({
+        firstName: body.saveUser.firstName,
+        lastName: body.saveUser.lastName,
+        email: body.saveUser.email,
+        password: body.saveUser.password,
+        address: body.saveUser.address,
+        postalCode: body.saveUser.postalCode,
+        city: body.saveUser.city,
+      });
       setUserExists(true);
     } else {
-      setErrorsSignup(dataConsumers.error);
+      setErrorsSignup(body.error);
     }
   };
 
@@ -66,7 +76,7 @@ function SignUp({ onSubmitToken }) {
   });
 
   return (
-    <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
+    <div style={{margin:10, marginBottom: 5 }}>
       <Navigation />
 
       <Filter />
@@ -207,6 +217,9 @@ function mapDispatchToProps(dispatch) {
   return {
     onSubmitToken: function (token) {
       dispatch({ type: "informationFromSignUp", token: token });
+    },
+    onSubmitDatas: function (argument) {
+      dispatch({ type: "userInfoFromSignUp", user: argument });
     },
   };
 }

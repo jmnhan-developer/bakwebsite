@@ -24,12 +24,11 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
   const [tokenIsSubmited, setTokenIsSubmited] = useState(false);
 
   // FUNCTION TO CLEAN ALL INPUTS
+
   function clickToClean() {
     setMail("");
     setPassword("");
   }
-
-  // ------ ESSAI ------
 
   var handleSubmitSignin = async () => {
     const data = await fetch(`/users/sign-in`, {
@@ -41,10 +40,12 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
     const body = await data.json();
 
     if (body.result === true) {
+
       onSubmitToken(body.user.token);
-      console.log("XXXX QU'EST CE QUE LE TOKEN DANS SIGNIN XXXX", body.user.token);
+
+      console.log("XXXX QU'EST CE QUE BODY.USER.TOKEN DANS SIGNIN XXXX", body.user.token);
       console.log("XXXX QU'EST CE QUE BODY DANS SIGNIN XXXX", body);
-      console.log("----QU'EST CE QUE DATAS DANS SIGNIN----", body.datas);
+  
 
       onSubmitDatas({
         firstName: body.user.firstName,
@@ -55,7 +56,7 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
         postalCode: body.user.postalCode,
         city: body.user.city,
       });
-      console.log("----QU'EST CE QUE DATAS DANS SIGNIN----", body.user);
+      console.log("----QUE CONTIENT BODY.USER DANS SIGNIN----", body.user);
 
       setUserExists(true);
     } else {
@@ -72,7 +73,7 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
   });
 
   return (
-    <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
+    <div style={{margin:10, marginBottom: 5 }}>
       <Navigation />
 
       <Filter />
@@ -158,7 +159,7 @@ function mapDispatchToProps(dispatch) {
     },
 
     onSubmitDatas: function (argument) {
-      dispatch({ type: "getUserInfo", user: argument });
+      dispatch({ type: "userInfoFromSignIn", user: argument });
     },
   };
 }

@@ -7,9 +7,10 @@ import { propTypes } from "react-bootstrap/esm/Image";
 
 function Navigation(props) {
 
-  console.log("EST CE QU'ON A BIEN LE TOKEN", props.user );
+  console.log("-----LES INFO DU USER DANS LA NAV-----", props.user );
 
   const [goToProfile, setGoToProfile] = useState(false);
+
   var infoUser = "";
 
   if (props.user.firstName) {
@@ -66,27 +67,28 @@ function Navigation(props) {
             />
           </Link>
         </Col>
-        <Col xs={6} md={4} style={{ display: "flex" }}>
+        <Col xs={6} md={5} style={{ display: "flex" }}>
           <SearchBar />
         </Col>
-        <Col xs={4} md={2}>
+        <Col xs={4} md={1}>
           <Link to="/SellScreen">
             <Button
               type="button"
               style={{
                 fontSize: 12,
-                color: "white",
-                backgroundColor: "#16bfc4",
-                border: "none",
+                fontWeight:"bold",
+                color: "#16bfc4",
+                backgroundColor: "white",
+                borderColor:"#16bfc4"
               }}
             >
-              Vendre un article
+              Vendre
             </Button>
           </Link>
         </Col>
         <Col xs={4} md={2}>
           <Link to="/SignUp" style={{ fontSize: 12, borderRadius: "blue" }}>
-            M'inscrire | Me connecter
+            Inscription | Connexion
           </Link>
         </Col>
         <Col xs={4} md={2}>

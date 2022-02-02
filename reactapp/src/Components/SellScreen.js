@@ -128,7 +128,7 @@ function SellScreen(props) {
   }
 
   return (
-    <div style={{ marginLeft: 25, marginTop: 5, marginBottom: 5 }}>
+    <div style={{margin:10, marginBottom: 5 }}>
 
       <Navigation />
 

@@ -28,6 +28,7 @@ function Filter(props) {
   const [goToResultScreen, setGoToResultScreen] = useState(false);
 
   var subCat1 = [
+    { subcategory: "Sélectionner une sous catégorie de Se déplacer"},
     { subcategory: "Sièges Auto" },
     { subcategory: "Nacelles" },
     { subcategory: "Poussettes" },
@@ -38,6 +39,7 @@ function Filter(props) {
   ];
 
   var subCat2 = [
+    { subcategory: "Sélectionner une sous catégorie de S'habiller" },
     { subcategory: "de 0 à 3 mois" },
     { subcategory: "de 4 à 6 mois" },
     { subcategory: "de 7 à 12 mois" },
@@ -48,6 +50,7 @@ function Filter(props) {
   ];
 
   var subCat3 = [
+    { subcategory: "Sélectionner une sous catégorie de Se baigner" },
     { subcategory: "Baignoires" },
     { subcategory: "Transats de bain" },
     { subcategory: "Lingettes-Serviettes" },
@@ -57,6 +60,7 @@ function Filter(props) {
   ];
 
   var subCat4 = [
+    { subcategory: "Sélectionner une sous catégorie de Dormir" },
     { subcategory: "Lits bébé" },
     { subcategory: "Lits de voyage" },
     { subcategory: "Linges de lit" },
@@ -67,6 +71,7 @@ function Filter(props) {
   ];
 
   var subCat5 = [
+    { subcategory: "Sélectionner une sous catégorie de Manger" },
     { subcategory: "Biberons" },
     { subcategory: "Chauffe-Biberons" },
     { subcategory: "Stérilisateurs" },
@@ -76,7 +81,10 @@ function Filter(props) {
     { subcategory: "Manger / Autre" },
   ];
 
-  var subCat6 = [{ subcategory: "Autre" }];
+  var subCat6 = [
+    { subcategory: "Sélectionner" },
+    { subcategory: "Autre sous-catégorie" },
+  ];
 
   if (DisplaySecondFilter1 == true) {
     setDisplaySubCat(subCat1);
@@ -98,19 +106,18 @@ function Filter(props) {
     setDisplaySecondFilter6(false);
   }
 
-  var validationButton;
-
   let InputSubCat = "";
   let optionSubCat = "";
   let buttonValidation = "";
+
   if (DisplaySubCat != "") {
-    let optionSubCat = DisplaySubCat.map((e, i) => {
+    optionSubCat = DisplaySubCat.map((e, i) => {
       return <option> {e.subcategory}</option>;
     });
 
     InputSubCat = (
       <Input
-        style={{ width: 170, fontSize: 12, marginRight: 3, height: 30 }}
+        style={{ width: 320, fontSize: 12, marginLeft:10, marginBottom:10, height: 30 }}
         type="select"
         name="select"
         onChange={(e) => {
@@ -125,11 +132,11 @@ function Filter(props) {
     buttonValidation = (
       <div className="buttonSearch">
         <Button
-          style={{ fontSize: 12, width: 100, marginLeft: 30, height: 30 }}
+          style={{ fontSize: 12, width: 100, marginLeft: 10, height: 30 }}
           className="buttonFilter"
           title="Rechercher"
           onClick={() => {
-            props.onSubCatSelected(subCatName);
+            props.onSubmitCatSelected(subCatName);
             setGoToResultScreen(true);
           }}
         >
@@ -142,19 +149,7 @@ function Filter(props) {
     return <Redirect to="/ResultScreen" />;
   }
 
-  const styleButton = {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    fontSize: 12,
-    color: "#16bfc4",
-    backgroundColor: "#ffffff",
-    border: "none",
-    margin: 3,
-    width: 110,
-    height: 30,
-  };
+  
 
   return (
     <div>
@@ -165,8 +160,8 @@ function Filter(props) {
           alignItems: "center",
           justifyContent: "flex-start",
           flexWrap: "wrap",
-					marginTop:10,
-					marginBottom:15
+          marginTop: 10,
+          marginBottom: 15,
         }}
       >
         <Button
@@ -184,14 +179,15 @@ function Filter(props) {
         >
           Se déplacer
         </Button>
+
         <Button
           style={styleButton}
           title="S'habiller"
           className="buttonFilter"
           onClick={() => {
             setDisplaySecondFilter2(true);
-            setColorButton2(!colorButton2);
             setColorButton1(false);
+            setColorButton2(!colorButton2);
             setColorButton3(false);
             setColorButton4(false);
             setColorButton5(false);
@@ -207,9 +203,9 @@ function Filter(props) {
           className="buttonFilter"
           onClick={() => {
             setDisplaySecondFilter3(true);
-            setColorButton3(!colorButton3);
             setColorButton1(false);
             setColorButton2(false);
+            setColorButton3(!colorButton3);
             setColorButton4(false);
             setColorButton5(false);
             setColorButton6(false);
@@ -223,10 +219,10 @@ function Filter(props) {
           className="buttonFilter"
           onClick={() => {
             setDisplaySecondFilter4(true);
-            setColorButton4(!colorButton4);
             setColorButton1(false);
             setColorButton2(false);
             setColorButton3(false);
+            setColorButton4(!colorButton4);
             setColorButton5(false);
             setColorButton6(false);
           }}
@@ -239,11 +235,11 @@ function Filter(props) {
           className="buttonFilter"
           onClick={() => {
             setDisplaySecondFilter5(true);
-            setColorButton5(!colorButton5);
             setColorButton1(false);
             setColorButton2(false);
             setColorButton3(false);
             setColorButton4(false);
+            setColorButton5(!colorButton5);
             setColorButton6(false);
           }}
         >
@@ -255,16 +251,18 @@ function Filter(props) {
           className="buttonFilter"
           onClick={() => {
             setDisplaySecondFilter6(true);
-            setColorButton5(!colorButton5);
             setColorButton1(false);
             setColorButton2(false);
             setColorButton3(false);
             setColorButton4(false);
             setColorButton5(false);
+            setColorButton6(!colorButton6);
           }}
         >
           Autre
         </Button>
+      </Row>
+      <Row>
         {InputSubCat}
         {buttonValidation}
       </Row>
@@ -274,10 +272,25 @@ function Filter(props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onSubCatSelected: function (subcat) {
+    onSubmitCatSelected: function (subcat) {
       dispatch({ type: "subCatFromFilter", subcat: subcat });
     },
   };
 }
+
+const styleButton = {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  fontSize: 12,
+  fontWeight: "bold",
+  color: "#16bfc4",
+  backgroundColor: "#ffffff",
+  border: "none",
+  margin: 3,
+  width: 110,
+  height: 30,
+};
 
 export default connect(null, mapDispatchToProps)(Filter);
