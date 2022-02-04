@@ -47,7 +47,7 @@ router.post('/create-article', async function (req, res, next) {
 router.get('/get-all-articles', async function (req, res, next) {
 
   let products = await articleModel.find({ isVisible: true }).sort({ creationDate: -1 })
-  // console.log(products)
+  console.log("---PRODUCTS DANS SUR LE ROUTE ARTICLES GET ALL ARTICLES---", products)
   res.json({ products });
 
 });
@@ -85,10 +85,10 @@ router.get('/filter-articles', async function (req, res, next) {
 
 router.get('/get-article-by-seller', async function (req, res, next) {
 
-  console.log(req.query)
-  let products = await articleModel.find({ sellerToken: req.query.SellerToken }).sort({ creationDate: -1 })
-  console.log('product by seller-----------------', products)
+  console.log("---REQ.QUERY---", req.query)
+  let products = await articleModel.find({ sellerToken: req.query.sellerToken }).sort({ creationDate: -1 })
   res.json({ products });
+  console.log("---QU'EST CE QUE PRODUCTS SUR LA ROUTE GET ARTICLE BY SELLER---", products)
 
 });
 

@@ -6,36 +6,32 @@ import SearchBar from "./SearchBar";
 import { propTypes } from "react-bootstrap/esm/Image";
 
 function Navigation(props) {
-
-  console.log("-----LES INFO DU USER DANS LA NAV-----", props.user );
+  console.log("-----LES INFO DU USER DANS LA NAV-----", props.user);
 
   const [goToProfile, setGoToProfile] = useState(false);
+  const [goToSell, setGoToSell] = useState(false);
 
-  var infoUser = "";
+  var infoUser = (
+    <p
+      style={{
+        display: "flex",
+        alignContent: "center",
+        margin: 0,
+        padding: 0,
+        fontSize: 12,
+        color: "#16bfc4",
+        borderRadius: "blue",
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        setGoToProfile(true);
+      }}
+    >
+      Bonjour {props.user.firstName} !
+    </p>
+  );
 
-  if (props.user.firstName) {
-    infoUser = (
-      <p
-        style={{
-          display: "flex",
-          alignContent: "center",
-          margin: 0,
-          padding: 0,
-          fontSize: 12,
-          color: "#16bfc4",
-          borderRadius: "blue",
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          setGoToProfile(true);
-        }}
-      >
-        Bonjour {props.user.firstName} !
-      </p>
-    );
-  }
 
-  
   if (goToProfile === true) {
     if (props.user.firstName) {
       return <Redirect to="/ProfileScreen" />;
@@ -44,7 +40,14 @@ function Navigation(props) {
     }
   }
 
-  
+  if (goToSell ===true) {
+    if (props.user.firstName) {
+      return <Redirect to="/sellScreen" />;
+    } else {
+      return <Redirect to="/signup" />;
+    }
+  }
+
   return (
     <div>
       <Row
@@ -71,20 +74,21 @@ function Navigation(props) {
           <SearchBar />
         </Col>
         <Col xs={4} md={1}>
-          <Link to="/SellScreen">
-            <Button
-              type="button"
-              style={{
-                fontSize: 12,
-                fontWeight:"bold",
-                color: "#16bfc4",
-                backgroundColor: "white",
-                borderColor:"#16bfc4"
-              }}
-            >
-              Vendre
-            </Button>
-          </Link>
+          <Button
+            type="button"
+            style={{
+              fontSize: 12,
+              fontWeight: "bold",
+              color: "#16bfc4",
+              backgroundColor: "white",
+              borderColor: "#16bfc4",
+            }}
+            onClick={() => {
+              setGoToSell(true);
+            }}
+          >
+            Vendre
+          </Button>
         </Col>
         <Col xs={4} md={2}>
           <Link to="/SignUp" style={{ fontSize: 12, borderRadius: "blue" }}>

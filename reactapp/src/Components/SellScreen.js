@@ -6,7 +6,8 @@ import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
 function SellScreen(props) {
-  console.log("token from sellscreen", props.token, "-----");
+
+  console.log("---EST CE QU'ON A BIEN LE TOKEN DANS SELLSCREEN----", props.token);
 
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -23,6 +24,7 @@ function SellScreen(props) {
   const [subCatName, setSubCatName] = useState("");
   const [selectedValueState, setSelectedValueState] = useState("");
   const [isValidated, setIsValidated] = useState(false);
+
 
   var handleClick = async () => {
     const dataArticle = await fetch(`/articles/create-article`, {
@@ -126,6 +128,7 @@ function SellScreen(props) {
       </Input>
     );
   }
+
 
   return (
     <div style={{margin:10, marginBottom: 5 }}>
