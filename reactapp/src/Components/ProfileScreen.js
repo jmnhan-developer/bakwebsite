@@ -24,6 +24,7 @@ function Profile(props) {
 
   const [goToProfileUpdate, setGoToProfileUpdate] = useState(false);
   const [myProductList, setMyProductList] = useState([]);
+  const [goToProduct, setGoToProduct] = useState(false);
 
   useState(() => {
     const findMyProducts = async () => {
@@ -43,10 +44,10 @@ function Profile(props) {
     return (
       <Col xs="6" md="4" lg="3" xl="2" style={{paddingLeft: 0, paddingRight: 0}}> 
         <Card
-          // onClick={() => {
-          //   setGoToProduct(true);
-          //   onSubmitproduct(e);
-          // }}
+          onClick={() => {
+            setGoToProduct(true);
+            // onSubmitproduct(e);
+          }}
           alt=""
           style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15 }}
         >
@@ -75,6 +76,10 @@ function Profile(props) {
 
   if (goToProfileUpdate == true) {
     return <Redirect to="/ProfileUpdateScreen" />;
+  }
+
+  if (goToProduct == true) {
+    return <Redirect to="/ProductScreen" />;
   }
 
   return (

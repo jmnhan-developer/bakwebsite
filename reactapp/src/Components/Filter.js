@@ -5,29 +5,31 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 function Filter(props) {
-  const [DisplaySubCat, setDisplaySubCat] = useState([]);
 
-  const [DisplaySecondFilter1, setDisplaySecondFilter1] = useState(false);
-  const [DisplaySecondFilter2, setDisplaySecondFilter2] = useState(false);
-  const [DisplaySecondFilter3, setDisplaySecondFilter3] = useState(false);
-  const [DisplaySecondFilter4, setDisplaySecondFilter4] = useState(false);
-  const [DisplaySecondFilter5, setDisplaySecondFilter5] = useState(false);
-  const [DisplaySecondFilter6, setDisplaySecondFilter6] = useState(false);
+  
+  const [DisplaySubCategory, setDisplaySubCategory] = useState([]);
 
-  const [colorButton1, setColorButton1] = useState(false);
-  const [colorButton2, setColorButton2] = useState(false);
-  const [colorButton3, setColorButton3] = useState(false);
-  const [colorButton4, setColorButton4] = useState(false);
-  const [colorButton5, setColorButton5] = useState(false);
-  const [colorButton6, setColorButton6] = useState(false);
+  const [category1, setCategory1] = useState(false);
+  const [category2, setCategory2] = useState(false);
+  const [category3, setCategory3] = useState(false);
+  const [category4, setCategory4] = useState(false);
+  const [category5, setCategory5] = useState(false);
+  const [category6, setCategory6] = useState(false);
+
+  // const [colorButton1, setColorButton1] = useState(false);
+  // const [colorButton2, setColorButton2] = useState(false);
+  // const [colorButton3, setColorButton3] = useState(false);
+  // const [colorButton4, setColorButton4] = useState(false);
+  // const [colorButton5, setColorButton5] = useState(false);
+  // const [colorButton6, setColorButton6] = useState(false);
 
   const [subCatSelected, setSubCatSelected] = useState(false);
 
-  const [subCatName, setSubCatName] = useState("");
+  const [subCategory, setSubCategory] = useState("");
 
   const [goToResultScreen, setGoToResultScreen] = useState(false);
 
-  var subCat1 = [
+  var subCategory1 = [
     { subcategory: "Sélectionner une sous catégorie de Se déplacer"},
     { subcategory: "Sièges Auto" },
     { subcategory: "Nacelles" },
@@ -38,7 +40,7 @@ function Filter(props) {
     { subcategory: "Se déplacer / Autre" },
   ];
 
-  var subCat2 = [
+  var subCategory2 = [
     { subcategory: "Sélectionner une sous catégorie de S'habiller" },
     { subcategory: "de 0 à 3 mois" },
     { subcategory: "de 4 à 6 mois" },
@@ -49,7 +51,7 @@ function Filter(props) {
     { subcategory: "Autres" },
   ];
 
-  var subCat3 = [
+  var subCategory3 = [
     { subcategory: "Sélectionner une sous catégorie de Se baigner" },
     { subcategory: "Baignoires" },
     { subcategory: "Transats de bain" },
@@ -59,7 +61,7 @@ function Filter(props) {
     { subcategory: "Se baigner / Autre" },
   ];
 
-  var subCat4 = [
+  var subCategory4 = [
     { subcategory: "Sélectionner une sous catégorie de Dormir" },
     { subcategory: "Lits bébé" },
     { subcategory: "Lits de voyage" },
@@ -70,7 +72,7 @@ function Filter(props) {
     { subcategory: "Dormir / Autre" },
   ];
 
-  var subCat5 = [
+  var subCategory5 = [
     { subcategory: "Sélectionner une sous catégorie de Manger" },
     { subcategory: "Biberons" },
     { subcategory: "Chauffe-Biberons" },
@@ -81,37 +83,37 @@ function Filter(props) {
     { subcategory: "Manger / Autre" },
   ];
 
-  var subCat6 = [
+  var subCategory6 = [
     { subcategory: "Sélectionner" },
     { subcategory: "Autre sous-catégorie" },
   ];
 
-  if (DisplaySecondFilter1 == true) {
-    setDisplaySubCat(subCat1);
-    setDisplaySecondFilter1(false);
-  } else if (DisplaySecondFilter2 == true) {
-    setDisplaySubCat(subCat2);
-    setDisplaySecondFilter2(false);
-  } else if (DisplaySecondFilter3 == true) {
-    setDisplaySubCat(subCat3);
-    setDisplaySecondFilter3(false);
-  } else if (DisplaySecondFilter4 == true) {
-    setDisplaySubCat(subCat4);
-    setDisplaySecondFilter4(false);
-  } else if (DisplaySecondFilter5 == true) {
-    setDisplaySubCat(subCat5);
-    setDisplaySecondFilter5(false);
-  } else if (DisplaySecondFilter6 == true) {
-    setDisplaySubCat(subCat6);
-    setDisplaySecondFilter6(false);
+  if (category1 == true) {
+    setDisplaySubCategory(subCategory1);
+    setCategory1(false);
+  } else if (category2 == true) {
+    setDisplaySubCategory(subCategory2);
+    setCategory2(false);
+  } else if (category3 == true) {
+    setDisplaySubCategory(subCategory3);
+    setCategory3(false);
+  } else if (category4 == true) {
+    setDisplaySubCategory(subCategory4);
+    setCategory4(false);
+  } else if (category5 == true) {
+    setDisplaySubCategory(subCategory5);
+    setCategory5(false);
+  } else if (category6 == true) {
+    setDisplaySubCategory(subCategory6);
+    setCategory6(false);
   }
 
   let InputSubCat = "";
   let optionSubCat = "";
   let buttonValidation = "";
 
-  if (DisplaySubCat != "") {
-    optionSubCat = DisplaySubCat.map((e, i) => {
+  if (DisplaySubCategory != "") {
+    optionSubCat = DisplaySubCategory.map((e, i) => {
       return <option> {e.subcategory}</option>;
     });
 
@@ -121,7 +123,7 @@ function Filter(props) {
         type="select"
         name="select"
         onChange={(e) => {
-          setSubCatName(e.target.value);
+          setSubCategory(e.target.value);
         }}
         className="inputSell"
       >
@@ -136,7 +138,7 @@ function Filter(props) {
           className="buttonFilter"
           title="Rechercher"
           onClick={() => {
-            props.onSubmitCatSelected(subCatName);
+            props.onSubmitCatSelected(subCategory);
             setGoToResultScreen(true);
           }}
         >
@@ -149,7 +151,7 @@ function Filter(props) {
     return <Redirect to="/ResultScreen" />;
   }
 
-  
+
 
   return (
     <div>
@@ -168,13 +170,13 @@ function Filter(props) {
           style={styleButton}
           className="buttonFilter"
           onClick={() => {
-            setDisplaySecondFilter1(true);
-            setColorButton1(!colorButton1);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton4(false);
-            setColorButton5(false);
-            setColorButton6(false);
+            setCategory1(true);
+            // setColorButton1(!colorButton1);
+            // setColorButton2(false);
+            // setColorButton3(false);
+            // setColorButton4(false);
+            // setColorButton5(false);
+            // setColorButton6(false);
           }}
         >
           Se déplacer
@@ -185,13 +187,13 @@ function Filter(props) {
           title="S'habiller"
           className="buttonFilter"
           onClick={() => {
-            setDisplaySecondFilter2(true);
-            setColorButton1(false);
-            setColorButton2(!colorButton2);
-            setColorButton3(false);
-            setColorButton4(false);
-            setColorButton5(false);
-            setColorButton6(false);
+            setCategory2(true);
+            // setColorButton1(false);
+            // setColorButton2(!colorButton2);
+            // setColorButton3(false);
+            // setColorButton4(false);
+            // setColorButton5(false);
+            // setColorButton6(false);
           }}
         >
           S'habiller
@@ -202,13 +204,13 @@ function Filter(props) {
           title="Se baigner"
           className="buttonFilter"
           onClick={() => {
-            setDisplaySecondFilter3(true);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton3(!colorButton3);
-            setColorButton4(false);
-            setColorButton5(false);
-            setColorButton6(false);
+            setCategory3(true);
+            // setColorButton1(false);
+            // setColorButton2(false);
+            // setColorButton3(!colorButton3);
+            // setColorButton4(false);
+            // setColorButton5(false);
+            // setColorButton6(false);
           }}
         >
           Se baigner
@@ -218,13 +220,13 @@ function Filter(props) {
           style={styleButton}
           className="buttonFilter"
           onClick={() => {
-            setDisplaySecondFilter4(true);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton4(!colorButton4);
-            setColorButton5(false);
-            setColorButton6(false);
+            setCategory4(true);
+            // setColorButton1(false);
+            // setColorButton2(false);
+            // setColorButton3(false);
+            // setColorButton4(!colorButton4);
+            // setColorButton5(false);
+            // setColorButton6(false);
           }}
         >
           Dormir
@@ -234,13 +236,13 @@ function Filter(props) {
           style={styleButton}
           className="buttonFilter"
           onClick={() => {
-            setDisplaySecondFilter5(true);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton4(false);
-            setColorButton5(!colorButton5);
-            setColorButton6(false);
+            setCategory5(true);
+            // setColorButton1(false);
+            // setColorButton2(false);
+            // setColorButton3(false);
+            // setColorButton4(false);
+            // setColorButton5(!colorButton5);
+            // setColorButton6(false);
           }}
         >
           Manger
@@ -250,13 +252,13 @@ function Filter(props) {
           style={styleButton}
           className="buttonFilter"
           onClick={() => {
-            setDisplaySecondFilter6(true);
-            setColorButton1(false);
-            setColorButton2(false);
-            setColorButton3(false);
-            setColorButton4(false);
-            setColorButton5(false);
-            setColorButton6(!colorButton6);
+            setCategory6(true);
+            // setColorButton1(false);
+            // setColorButton2(false);
+            // setColorButton3(false);
+            // setColorButton4(false);
+            // setColorButton5(false);
+            // setColorButton6(!colorButton6);
           }}
         >
           Autre
