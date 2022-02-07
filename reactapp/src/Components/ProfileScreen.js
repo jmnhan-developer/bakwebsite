@@ -41,17 +41,25 @@ function Profile(props) {
   
   let myProducts = myProductList.map((e, i) => {
     return (
-      <Col
-        xs="6"
-        md="4"
-        lg="3"
-        xl="2"
-        style={{ paddingLeft: 0, paddingRight: 0 }}
-      >
-        <Card>
-          <CardImg top width="100%" src={e.images} alt="Card image cap" />
+      <Col xs="6" md="4" lg="3" xl="2" style={{paddingLeft: 0, paddingRight: 0}}> 
+        <Card
+          // onClick={() => {
+          //   setGoToProduct(true);
+          //   onSubmitproduct(e);
+          // }}
+          alt=""
+          style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15 }}
+        >
+          <CardImg
+            top
+            width="100%"
+            src={e.images}
+            alt="Card image cap"
+            style={{ height: 150, borderRadius: 15 }}
+          />
+          <hr style={{ marginBottom: 2 }} />
           <CardBody>
-            <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
+          <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
               {e.title}
             </CardTitle>
             <CardSubtitle style={{ fontSize: 12 }} className="mb-2 text-muted">
@@ -59,20 +67,6 @@ function Profile(props) {
             </CardSubtitle>
             <CardText style={{ fontSize: 12 }}>{e.brand}</CardText>
             <CardText style={{ fontSize: 12 }}>{e.state}</CardText>
-            <Button
-              style={{
-                fontSize: 12,
-                color: "white",
-                backgroundColor: "#16bfc4",
-                border: "none",
-              }}
-              // onClick={() => {
-              //   setGoToProduct(true);
-              //   props.onSubmitproduct(e);
-              // }}
-            >
-              Voir l'article
-            </Button>
           </CardBody>
         </Card>
       </Col>

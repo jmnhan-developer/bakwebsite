@@ -6,43 +6,50 @@ import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
 function SellScreen(props) {
-
-  console.log("---EST CE QU'ON A BIEN LE TOKEN DANS SELLSCREEN----", props.token);
+  console.log(
+    "---EST CE QU'ON A BIEN LE TOKEN DANS SELLSCREEN----",
+    props.token
+  );
 
   const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
+  const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState(0);
-  const [age, setAge] = useState("");
+  const [kidsAge, setKidsAge] = useState("");
   const [url, setUrl] = useState("");
   const [state, setState] = useState("");
   const [token, setToken] = useState("");
 
-  const [catName, setCatName] = useState("");
-  const [selectedCatName, setSelectedCatName] = useState(false);
-  const [DisplaySubCat, setDisplaySubCat] = useState([]);
-  const [subCatName, setSubCatName] = useState("");
-  const [selectedValueState, setSelectedValueState] = useState("");
+  const [category, setCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(false);
+  const [DisplaySubCategory, setDisplaySubCategory] = useState([]);
+  const [subCategory, setSubCategory] = useState("");
   const [isValidated, setIsValidated] = useState(false);
 
+  const [listErrorsCreateArticle, setListErrorsCreateArticle] = useState([]);
 
   var handleClick = async () => {
-    const dataArticle = await fetch(`/articles/create-article`, {
+    const data = await fetch(`/articles/create-article`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `url=${url}&title=${title}&description=${desc}&brand=${brand}&price=${price}&age=${age}&category=${catName}&subcategory=${subCatName}&state=${selectedValueState}&sellerToken=${props.token}`,
-
-      // &sellerToken=${props.token}
+      body: `urlFromFront=${url}&titleFromFront=${title}&descriptionFromFront=${description}&brandFromFront=${brand}&priceFromFront=${price}&categoryFromFront=${category}&subcategoryFromFront=${subCategory}&stateFromFront=${state}&sellerToken=${props.token}`
     });
-    console.log("dataAnnonce XXXX", dataArticle.body);
+    
+    const body = await data.json();
 
-    const dataAnnonce = await dataArticle.json();
+    if (body.result == true) {
+      setIsValidated(true)
+    } else {
+      setListErrorsCreateArticle(body.error)
+    }
   };
+
   if (isValidated == true) {
     return <Redirect to="/" />;
   }
 
-  var subCat1 = [
+  var subCategory1 = [
+    { subcategory: "Sélectionner un produit" },
     { subcategory: "Sièges Auto" },
     { subcategory: "Nacelles" },
     { subcategory: "Poussettes" },
@@ -52,7 +59,8 @@ function SellScreen(props) {
     { subcategory: "Se déplacer / Autre" },
   ];
 
-  var subCat2 = [
+  var subCategory2 = [
+    { subcategory: "Sélectionner un produit" },
     { subcategory: "de 0 à 3 mois" },
     { subcategory: "de 4 à 6 mois" },
     { subcategory: "de 7 à 12 mois" },
@@ -62,7 +70,8 @@ function SellScreen(props) {
     { subcategory: "Autres" },
   ];
 
-  var subCat3 = [
+  var subCategory3 = [
+    { subcategory: "Sélectionner un produit" },
     { subcategory: "Baignoires" },
     { subcategory: "Transats de bain" },
     { subcategory: "Lingettes-Serviettes" },
@@ -71,7 +80,8 @@ function SellScreen(props) {
     { subcategory: "Se baigner / Autre" },
   ];
 
-  var subCat4 = [
+  var subCategory4 = [
+    { subcategory: "Sélectionner un produit" },
     { subcategory: "Lits bébé" },
     { subcategory: "Lits de voyage" },
     { subcategory: "Linges de lit" },
@@ -81,7 +91,8 @@ function SellScreen(props) {
     { subcategory: "Dormir / Autre" },
   ];
 
-  var subCat5 = [
+  var subCategory5 = [
+    { subcategory: "Sélectionner un produit" },
     { subcategory: "Biberons" },
     { subcategory: "Chauffe-Biberons" },
     { subcategory: "Stérilisateurs" },
@@ -91,28 +102,36 @@ function SellScreen(props) {
     { subcategory: "Manger / Autre" },
   ];
 
-  if (catName == "Se déplacer" && selectedCatName == true) {
-    setDisplaySubCat(subCat1);
-    setSelectedCatName(false);
-  } else if (catName == "S'habiller" && selectedCatName == true) {
-    setDisplaySubCat(subCat2);
-    setSelectedCatName(false);
-  } else if (catName == "Se baigner" && selectedCatName == true) {
-    setDisplaySubCat(subCat3);
-    setSelectedCatName(false);
-  } else if (catName == "Dormir" && selectedCatName == true) {
-    setDisplaySubCat(subCat4);
-    setSelectedCatName(false);
-  } else if (catName == "Manger" && selectedCatName == true) {
-    setDisplaySubCat(subCat5);
-    setSelectedCatName(false);
+  var subCategory6 = [
+    { subcategory: "Sélectionner" },
+    { subcategory: "Autre sous-catégorie" },
+  ];
+
+  if (category == "Se déplacer" && selectedCategory == true) {
+    setDisplaySubCategory(subCategory1);
+    setSelectedCategory(false);
+  } else if (category == "S'habiller" && selectedCategory == true) {
+    setDisplaySubCategory(subCategory2);
+    setSelectedCategory(false);
+  } else if (category == "Se baigner" && selectedCategory == true) {
+    setDisplaySubCategory(subCategory3);
+    setSelectedCategory(false);
+  } else if (category == "Dormir" && selectedCategory == true) {
+    setDisplaySubCategory(subCategory4);
+    setSelectedCategory(false);
+  } else if (category == "Manger" && selectedCategory == true) {
+    setDisplaySubCategory(subCategory5);
+    setSelectedCategory(false);
+  } else if (category == "Autre" && selectedCategory == true) {
+    setDisplaySubCategory(subCategory6);
+    setSelectedCategory(false);
   }
 
   let InputSubCat = "";
   let optionSubCat = "";
 
-  if (DisplaySubCat != "") {
-    let optionSubCat = DisplaySubCat.map((e, i) => {
+  if (DisplaySubCategory != "") {
+    let optionSubCat = DisplaySubCategory.map((e, i) => {
       return <option> {e.subcategory}</option>;
     });
 
@@ -121,7 +140,7 @@ function SellScreen(props) {
         style={{ fontSize: 12 }}
         type="select"
         name="select"
-        onChange={(e) => setSubCatName(e.target.value)}
+        onChange={(e) => setSubCategory(e.target.value)}
         className="inputSell"
       >
         {optionSubCat}
@@ -129,10 +148,12 @@ function SellScreen(props) {
     );
   }
 
+  var tabErrorsCreateArticle = listErrorsCreateArticle.map((error, i) => {
+    return <p style={{ fontSize: 12, color: "red" }}>{error}</p>;
+  });
 
   return (
-    <div style={{margin:10, marginBottom: 5 }}>
-
+    <div style={{ margin: 10, marginBottom: 5 }}>
       <Navigation />
 
       <Filter />
@@ -161,8 +182,8 @@ function SellScreen(props) {
               name="select"
               id="exampleSelect"
               onChange={(e) => {
-                setCatName(e.target.value);
-                setSelectedCatName(true);
+                setCategory(e.target.value);
+                setSelectedCategory(true);
               }}
               className="inputSell"
             >
@@ -204,8 +225,8 @@ function SellScreen(props) {
               name="select"
               id="exampleSelect"
               onChange={(e) => {
-                setSelectedValueState(e.target.value);
-                setSelectedCatName(true);
+                setState(e.target.value);
+                setSelectedCategory(true);
                 setState(e.target.value);
               }}
             >
@@ -286,11 +307,12 @@ function SellScreen(props) {
               type="textarea"
               name="text"
               id="exampleText"
-              onChange={(e) => setDesc(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </FormGroup>
         </Col>
       </Row>
+      <Row style={styleRow}>{tabErrorsCreateArticle}</Row>
 
       <Row style={styleRow}>
         <Button
@@ -299,11 +321,10 @@ function SellScreen(props) {
             color: "white",
             backgroundColor: "#16bfc4",
             border: "none",
-						marginBottom: 20,
+            marginBottom: 20,
           }}
           onClick={() => {
             handleClick();
-            setIsValidated(true);
           }}
         >
           Publier

@@ -8,7 +8,7 @@ const articleSchema = mongoose.Schema({
     price:String,
     shippingFees:String,
     category:String,
-    subcategory:String,
+    subCategory:String,
     state:String,
     articleSold:Boolean,
     sellerToken:String,

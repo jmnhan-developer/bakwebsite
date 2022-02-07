@@ -38,16 +38,16 @@ function Homescreen({ token, onSubmitproduct }) {
             onSubmitproduct(e);
           }}
           alt=""
-          style={{ paddingLeft: 0, paddingRight: 0, marginBottom: 2, cursor: "pointer" }}
+          style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15 }}
         >
           <CardImg
             top
             width="100%"
             src={e.images}
             alt="Card image cap"
-            style={{ height: 150 }}
+            style={{ height: 150, borderRadius: 15 }}
           />
-          <hr style={{ marginBottom: 1 }} />
+          <hr style={{ marginBottom: 2 }} />
           <CardBody>
           <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
               {e.title}

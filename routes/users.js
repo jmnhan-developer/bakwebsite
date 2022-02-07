@@ -64,10 +64,8 @@ router.post("/sign-up", async function (req, res, next) {
   res.json({ result, saveUser, error, token });
 });
 
-
 //-----ROUTE SIGN IN-----
 router.post("/sign-in", async function (req, res, next) {
-
   console.log(req.body);
   var result = false;
   var user = null;
@@ -88,11 +86,10 @@ router.post("/sign-in", async function (req, res, next) {
         req.body.passwordFromFront + user.salt
       ).toString(encBase64);
       var token = user.token;
-      
+
       if (passwordHash == user.password) {
         result = true;
         // token = user.token;
-
       } else {
         result = false;
         error.push("mot de passe incorrect");
@@ -101,7 +98,7 @@ router.post("/sign-in", async function (req, res, next) {
       error.push("email incorrect");
     }
   }
-  console.log("XXXXXXXXX", result, user, token, error)
+  console.log("XXXXXXXXX", result, user, token, error);
 
   res.json({ result, user, token, error });
 });
