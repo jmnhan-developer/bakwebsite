@@ -6,10 +6,8 @@ import {
   CardImg,
   CardTitle,
   CardSubtitle,
-  Button,
   Col,
-  Row,
-  div,
+  Row
 } from "reactstrap";
 import { connect } from "react-redux";
 import Navigation from "./Nav.js";
@@ -18,7 +16,6 @@ import { Redirect } from "react-router-dom";
 
 function ResultScreen(props) {
   const [productList, setProductList] = useState([]);
-  const [listenReducer, setListenReducer] = useState("");
   const [goToProduct, setGoToProduct] = useState(false);
 
   useEffect(() => {
@@ -77,7 +74,7 @@ function ResultScreen(props) {
       </Col>
     );
   });
-  if (goToProduct == true) {
+  if (goToProduct === true) {
     return <Redirect to="/ProductScreen" />;
   }
 

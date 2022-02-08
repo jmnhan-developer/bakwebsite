@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input, Button, div, Row, Col } from "reactstrap";
+import { Input, Button, Row } from "reactstrap";
 import "../App.css";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -22,8 +22,6 @@ function Filter(props) {
   // const [colorButton4, setColorButton4] = useState(false);
   // const [colorButton5, setColorButton5] = useState(false);
   // const [colorButton6, setColorButton6] = useState(false);
-
-  const [subCatSelected, setSubCatSelected] = useState(false);
 
   const [subCategory, setSubCategory] = useState("");
 
@@ -88,22 +86,22 @@ function Filter(props) {
     { subcategory: "Autre sous-catégorie" },
   ];
 
-  if (category1 == true) {
+  if (category1 === true) {
     setDisplaySubCategory(subCategory1);
     setCategory1(false);
-  } else if (category2 == true) {
+  } else if (category2 === true) {
     setDisplaySubCategory(subCategory2);
     setCategory2(false);
-  } else if (category3 == true) {
+  } else if (category3 === true) {
     setDisplaySubCategory(subCategory3);
     setCategory3(false);
-  } else if (category4 == true) {
+  } else if (category4 === true) {
     setDisplaySubCategory(subCategory4);
     setCategory4(false);
-  } else if (category5 == true) {
+  } else if (category5 === true) {
     setDisplaySubCategory(subCategory5);
     setCategory5(false);
-  } else if (category6 == true) {
+  } else if (category6 === true) {
     setDisplaySubCategory(subCategory6);
     setCategory6(false);
   }

@@ -1,22 +1,11 @@
-import React, { useState, useEffect, MenuItem } from "react";
-import {
-  Col,
-  Row,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  div,
-} from "reactstrap";
+import React, { useState } from "react";
+import { Col, Row, Button, FormGroup, Label, Input } from "reactstrap";
 import { Redirect, Link } from "react-router-dom";
-import { connect, createDispatchHook } from "react-redux";
+import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
-import { alignPropType } from "react-bootstrap/esm/DropdownMenu";
 
 function SignUp({ onSubmitToken, onSubmitDatas }) {
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setMail] = useState("");
@@ -24,9 +13,6 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
   const [address, setAddress] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
-
-  const [token, setToken] = useState("");
-
   const [userExists, setUserExists] = useState(false);
   const [listErrorsSignup, setErrorsSignup] = useState([]);
 
@@ -76,7 +62,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
   });
 
   return (
-    <div style={{margin:10, marginBottom: 5 }}>
+    <div style={{ margin: 10, marginBottom: 5 }}>
       <Navigation />
 
       <Filter />
@@ -200,7 +186,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
             border: "none",
             marginBottom: 20,
           }}
-          onClick={() => handleSubmitSignup()}
+          onClick={(() => handleSubmitSignup(), clickToClean())}
         >
           M'inscrire
         </Button>

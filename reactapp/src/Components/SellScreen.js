@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, div, FormGroup, Label, Input, Button, Col } from "reactstrap";
+import { Row, FormGroup, Label, Input, Button, Col } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Navigation from "./Nav.js";
@@ -15,7 +15,6 @@ function SellScreen(props) {
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
   const [price, setPrice] = useState(0);
-  const [kidsAge, setKidsAge] = useState("");
   const [url, setUrl] = useState("");
   const [state, setState] = useState("");
   const [token, setToken] = useState("");
@@ -37,14 +36,14 @@ function SellScreen(props) {
     
     const body = await data.json();
 
-    if (body.result == true) {
+    if (body.result === true) {
       setIsValidated(true)
     } else {
       setListErrorsCreateArticle(body.error)
     }
   };
 
-  if (isValidated == true) {
+  if (isValidated === true) {
     return <Redirect to="/" />;
   }
 
@@ -107,22 +106,22 @@ function SellScreen(props) {
     { subcategory: "Autre sous-catégorie" },
   ];
 
-  if (category == "Se déplacer" && selectedCategory == true) {
+  if (category === "Se déplacer" && selectedCategory === true) {
     setDisplaySubCategory(subCategory1);
     setSelectedCategory(false);
-  } else if (category == "S'habiller" && selectedCategory == true) {
+  } else if (category === "S'habiller" && selectedCategory === true) {
     setDisplaySubCategory(subCategory2);
     setSelectedCategory(false);
-  } else if (category == "Se baigner" && selectedCategory == true) {
+  } else if (category === "Se baigner" && selectedCategory === true) {
     setDisplaySubCategory(subCategory3);
     setSelectedCategory(false);
-  } else if (category == "Dormir" && selectedCategory == true) {
+  } else if (category === "Dormir" && selectedCategory === true) {
     setDisplaySubCategory(subCategory4);
     setSelectedCategory(false);
-  } else if (category == "Manger" && selectedCategory == true) {
+  } else if (category === "Manger" && selectedCategory === true) {
     setDisplaySubCategory(subCategory5);
     setSelectedCategory(false);
-  } else if (category == "Autre" && selectedCategory == true) {
+  } else if (category === "Autre" && selectedCategory === true) {
     setDisplaySubCategory(subCategory6);
     setSelectedCategory(false);
   }
@@ -130,8 +129,8 @@ function SellScreen(props) {
   let InputSubCat = "";
   let optionSubCat = "";
 
-  if (DisplaySubCategory != "") {
-    let optionSubCat = DisplaySubCategory.map((e, i) => {
+  if (DisplaySubCategory !== "") {
+    optionSubCat = DisplaySubCategory.map((e, i) => {
       return <option> {e.subcategory}</option>;
     });
 

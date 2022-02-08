@@ -3,7 +3,7 @@ import { Button, Row, Col, div } from "reactstrap";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import SearchBar from "./SearchBar";
-import { propTypes } from "react-bootstrap/esm/Image";
+
 
 function Navigation(props) {
   console.log("-----LES INFO DU USER DANS LA NAV-----", props.user);
@@ -36,11 +36,11 @@ function Navigation(props) {
     if (props.user.firstName) {
       return <Redirect to="/ProfileScreen" />;
     } else {
-      return <Redirect to="/signup" />;
+      return <Redirect to="/signin" />;
     }
   }
 
-  if (goToSell ===true) {
+  if (goToSell === true) {
     if (props.user.firstName) {
       return <Redirect to="/sellScreen" />;
     } else {

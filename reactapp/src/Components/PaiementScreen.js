@@ -121,8 +121,7 @@ const PaiementScreen = (props) => {
     );
 }
 
-var styleEcrit = { fontSize: 12, color: "lightgrey", width: "40%", marginBottom: 5 }
-var styleBd = { fontSize: 12, color: "grey", marginBottom: 5 }
+
 var styleEcrit1 = { fontSize: 13, color: "black", width: "45%", marginBottom: 5 }
 var styleBd1 = { fontSize: 13, fontWeight: "bold", color: "black", marginBottom: 5 }
 

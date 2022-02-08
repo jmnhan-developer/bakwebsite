@@ -6,9 +6,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  Row,
-  div,
-  Button,
+  Row
 } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -63,7 +61,7 @@ function Homescreen({ token, onSubmitproduct }) {
     );
   });
 
-  if (goToProduct == true) {
+  if (goToProduct === true) {
     return <Redirect to="/ProductScreen" />;
   }
 

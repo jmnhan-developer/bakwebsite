@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
-  div,
   Row,
   Input,
   Button,
@@ -74,11 +73,11 @@ function Profile(props) {
     );
   });
 
-  if (goToProfileUpdate == true) {
+  if (goToProfileUpdate === true) {
     return <Redirect to="/ProfileUpdateScreen" />;
   }
 
-  if (goToProduct == true) {
+  if (goToProduct === true) {
     return <Redirect to="/MyProductScreen" />;
   }
 
@@ -187,14 +186,7 @@ var styleRowDisplayProfile = {
   marginLeft: 2,
   marginRight: 2,
 };
-var styleRowDisplayProducts = {
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "space-evenly",
-  backgroundColor: "#ffffff",
-  marginLeft: 2,
-  marginRight: 2,
-};
+
 var styleCol = {
   display: "flex",
   flexDirection: "row",

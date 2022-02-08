@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Card, CardImg, div, Row } from "reactstrap";
-import { Col, Button, Cardeck } from "react-bootstrap";
-import { Redirect, Link } from "react-router-dom";
+import { Card, CardImg, Row } from "reactstrap";
+import { Col, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
@@ -11,7 +11,7 @@ const ProductScreen = (props) => {
 
   const [goToPayment, setGoToPayment] = useState(false);
 
-  if (goToPayment == true) {
+  if (goToPayment === true) {
     return <Redirect to="/PaiementScreen" />;
   }
 

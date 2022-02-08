@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { div, Row, Input, Button } from "reactstrap";
+import React, { useState } from "react";
+import { Row, Input } from "reactstrap";
 import { Col } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import Navigation from "./Nav.js";

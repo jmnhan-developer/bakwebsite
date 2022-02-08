@@ -3,11 +3,9 @@ import {
   Col,
   Row,
   Button,
-  Form,
   FormGroup,
   Label,
-  Input,
-  div,
+  Input
 } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -18,11 +16,9 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
   
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [isConnect, setIsConnect] = useState(false);
-  const [userDatas, setUserDatas] = useState("");
   const [userExists, setUserExists] = useState("");
   const [listErrorsSignin, setErrorsSignin] = useState([]);
-  const [tokenIsSubmited, setTokenIsSubmited] = useState(false);
+
 
   // FUNCTION TO CLEAN ALL INPUTS
 

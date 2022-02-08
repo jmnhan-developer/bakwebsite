@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Card, CardImg, div, Row } from "reactstrap";
-import { Col, Button, Cardeck } from "react-bootstrap";
-import { Redirect, Link } from "react-router-dom";
+import { Card, CardImg, Row } from "reactstrap";
+import { Col, Button } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
@@ -23,7 +23,7 @@ function MyProductScreen(props) {
     });
       setArticleDeleted(true)
   };
-	if (articleDeleted == true) {
+	if (articleDeleted === true) {
 		return <Redirect to="/ProfileScreen" />
 	}
 
@@ -41,7 +41,7 @@ function MyProductScreen(props) {
               top
               width="100px"
               src={props.product.images}
-              alt="Card image cap"
+
             />
           </Card>
         </Col>

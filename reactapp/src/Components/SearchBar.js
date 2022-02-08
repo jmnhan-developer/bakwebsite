@@ -14,9 +14,16 @@ function SearchBar() {
         products.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilterAddList(results);
+
+      console.log("---RESULTS---", results)
+      
     } else {
       setFilterAddList(productList);
     }
+
+    console.log("---SEARCHTERM---", searchTerm)
+    console.log("---PRODUCTLIST---", productList)
+    
   }, [searchTerm]);
 
   return (
@@ -29,12 +36,6 @@ function SearchBar() {
         height: 30,
         outline: "none",
         fontSize: 12,
-      }}
-      leftIcon={{
-        type: "font-awesome",
-        name: "search",
-        color: "grey",
-        size: 20,
       }}
       lightTheme="true"
       placeholder="Rechercher"
