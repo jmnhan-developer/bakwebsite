@@ -143,7 +143,7 @@ router.post("/cancel-article", async function (req, res, next) {
 
   var result = false;
   if (returnDb.deletedCount == 1) {
-    result = true;
+    result == true;
   }
 
   res.json({ result });

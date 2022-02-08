@@ -7,6 +7,7 @@ import SignIn from "./Components/SignIn"
 import ProductScreen from "./Components/ProductScreen.js"
 import PaiementScreen from "./Components/PaiementScreen.js"
 import ProfileScreen from "./Components/ProfileScreen.js"
+import MyProductScreen from "./Components/MyProductScreen.js"
 import ProfileUpdateScreen from './Components/ProfileUpdateScreen.js';
 import SellScreen from "./Components/SellScreen.js"
 import ResultScreen from "./Components/ResultScreen.js"
@@ -34,6 +35,7 @@ function App() {
           <Route component={SignUp} path="/signup" exact />
           <Route component={SignIn} path="/signin" exact />
           <Route component={ProfileScreen} path="/profilescreen" exact />
+          <Route component={MyProductScreen} path="/myproductscreen" exact />
           <Route component={ProfileUpdateScreen} path="/profileupdatescreen" exact />
           <Route component={SellScreen} path="/sellscreen" exact />
           <Route component={ResultScreen} path="/resultscreen" exact />

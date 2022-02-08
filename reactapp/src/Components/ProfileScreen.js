@@ -46,7 +46,7 @@ function Profile(props) {
         <Card
           onClick={() => {
             setGoToProduct(true);
-            // onSubmitproduct(e);
+            props.onSubmitproduct(e);
           }}
           alt=""
           style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15 }}
@@ -79,7 +79,7 @@ function Profile(props) {
   }
 
   if (goToProduct == true) {
-    return <Redirect to="/ProductScreen" />;
+    return <Redirect to="/MyProductScreen" />;
   }
 
   return (
@@ -206,6 +206,14 @@ var styleP = { width: 150, fontSize: 12, margin: 0 };
 
 function mapStateToProps(state) {
   return { user: state.machin, token: state.token };
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitproduct: function (product) {
+      dispatch({ type: "productSelectedFromResultScreen", product: product });
+    },
+  };
 }
 
-export default connect(mapStateToProps, null)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
