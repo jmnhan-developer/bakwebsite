@@ -37,7 +37,7 @@ function SearchBar() {
         outline: "none",
         fontSize: 12,
       }}
-      lightTheme="true"
+      lighttheme="true"
       placeholder="Rechercher"
       onChangeText={(val) => setSearchTerm(val)}
     />

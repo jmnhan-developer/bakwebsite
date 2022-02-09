@@ -24,7 +24,7 @@ function Navigation(props) {
         cursor: "pointer",
       }}
       onClick={() => {
-        setGoToProfile(true);
+        setGoToProfile(true)
       }}
     >
       Bonjour {props.user.firstName} !
@@ -91,7 +91,7 @@ function Navigation(props) {
           </Button>
         </Col>
         <Col xs={4} md={2}>
-          <Link to="/SignUp" style={{ fontSize: 12, borderRadius: "blue" }}>
+          <Link to="/Signup" style={{ fontSize: 12, borderRadius: "blue" }}>
             Inscription | Connexion
           </Link>
         </Col>

@@ -89,6 +89,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               name="prénom"
               id="prénom"
               placeholder="Prénom"
+              value={firstName}
             />
           </FormGroup>
         </Col>
@@ -102,6 +103,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               name="nom"
               id="nom"
               placeholder="Nom"
+              value={lastName}
             />
           </FormGroup>
         </Col>
@@ -117,6 +119,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               name="email"
               id="email"
               placeholder="e-mail"
+              value={email}
             />
           </FormGroup>
         </Col>
@@ -130,6 +133,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               name="password"
               id="examplePassword"
               placeholder="password"
+              value={password}
             />
           </FormGroup>
         </Col>
@@ -146,6 +150,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               name="adresse"
               id="adresse"
               placeholder="Adresse"
+              value={address}
             />
           </FormGroup>
         </Col>
@@ -160,6 +165,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               type="text"
               name="zip"
               id="exampleZip"
+              value={postalCode}
             />
           </FormGroup>
         </Col>
@@ -172,6 +178,7 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
               type="text"
               name="ville"
               id="ville"
+              value={city}
             />
           </FormGroup>
         </Col>
@@ -186,11 +193,13 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
             border: "none",
             marginBottom: 20,
           }}
-          onClick={(() => handleSubmitSignup(), clickToClean())}
+          onClick={() => {
+            handleSubmitSignup();
+            clickToClean();
+          }}
         >
           M'inscrire
         </Button>
-        {/* <p>Ne pas oublier de rajouter clickToClean() dans le onClick</p> */}
         <Link to="/SignIn" style={{ fontSize: 12 }}>
           J'ai déjà un compte
         </Link>

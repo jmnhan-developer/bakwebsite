@@ -16,7 +16,7 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
   
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [userExists, setUserExists] = useState("");
+  const [userExists, setUserExists] = useState(false);
   const [listErrorsSignin, setErrorsSignin] = useState([]);
 
 
@@ -98,6 +98,7 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
               name="email"
               id="email"
               placeholder="e-mail"
+              value={email}
             />
           </FormGroup>
         </Col>
@@ -113,6 +114,7 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
               name="password"
               id="examplePassword"
               placeholder="password"
+              value={password}
             />
           </FormGroup>
         </Col>
