@@ -7,7 +7,7 @@ import {
   CardTitle,
   CardSubtitle,
   Col,
-  Row
+  Row,
 } from "reactstrap";
 import { connect } from "react-redux";
 import Navigation from "./Nav.js";
@@ -29,51 +29,79 @@ function ResultScreen(props) {
     findProducts();
   }, [props.subcat]);
 
-  let searchProduct = productList.map((e, i) => {
-    return (
-      <Col
-        xs="6"
-        md="4"
-        lg="3"
-        xl="2"
-        style={{ paddingLeft: 0, paddingRight: 0 }}
-      >
-        <Card
-          onClick={() => {
-            setGoToProduct(true);
-            props.onSubmitproduct(e);
-          }}
-          alt=""
-          style={{
-            paddingLeft: 0,
-            paddingRight: 0,
-            margin: 5,
-            cursor: "pointer",
-            borderRadius: 15,
-          }}
+  console.log("----PRODUCTLIST----", productList);
+
+  let searchProduct;
+
+  if (productList.length > 0) {
+    console.log("----PRODUCTLIST.LENGTH----", productList.length);
+    searchProduct = productList.map((e, i) => {
+      return (
+        <Col
+          key={i}
+          xs="6"
+          md="4"
+          lg="3"
+          xl="2"
+          style={{ paddingLeft: 0, paddingRight: 0 }}
         >
-          <CardImg
-            top
-            width="100%"
-            src={e.images}
-            alt="Card image cap"
-            style={{ height: 150, borderRadius: 15 }}
-          />
-          <hr style={{ marginBottom: 2 }} />
-          <CardBody>
-            <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
-              {e.title}
-            </CardTitle>
-            <CardSubtitle style={{ fontSize: 12 }} className="mb-2 text-muted">
-              {e.price}€
-            </CardSubtitle>
-            <CardText style={{ fontSize: 12 }}>{e.brand}</CardText>
-            <CardText style={{ fontSize: 12 }}>{e.state}</CardText>
-          </CardBody>
-        </Card>
-      </Col>
+          <Card
+            onClick={() => {
+              setGoToProduct(true);
+              props.onSubmitproduct(e);
+            }}
+            alt=""
+            style={{
+              paddingLeft: 0,
+              paddingRight: 0,
+              margin: 5,
+              cursor: "pointer",
+              borderRadius: 15,
+            }}
+          >
+            <CardImg
+              top
+              width="100%"
+              src={e.images}
+              alt="Card image cap"
+              style={{ height: 150, borderRadius: 15 }}
+            />
+            <hr style={{ marginBottom: 2 }} />
+            <CardBody>
+              <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
+                {e.title}
+              </CardTitle>
+              <CardSubtitle
+                style={{ fontSize: 12 }}
+                className="mb-2 text-muted"
+              >
+                {e.price}€
+              </CardSubtitle>
+              <CardText style={{ fontSize: 12 }}>{e.brand}</CardText>
+              <CardText style={{ fontSize: 12 }}>{e.state}</CardText>
+            </CardBody>
+          </Card>
+        </Col>
+      );
+    });
+  } else {
+    searchProduct = (
+      <p
+        style={{
+          display: "flex",
+          alignContent: "center",
+          margin: 0,
+          padding: 0,
+          fontSize: 12,
+          color: "#16bfc4",
+          borderRadius: "blue",
+        }}
+      >
+        Aucun produit
+      </p>
     );
-  });
+  }
+
   if (goToProduct === true) {
     return <Redirect to="/ProductScreen" />;
   }
@@ -81,10 +109,9 @@ function ResultScreen(props) {
   return (
     <div style={{ margin: 10, marginBottom: 5 }}>
       <Navigation />
-
       <Filter />
 
-      <p>Résultats de votre recherche</p>
+      <p>Résultats de votre recherche:</p>
       <Row style={{ marginLeft: 2, marginRight: 2 }}>{searchProduct}</Row>
     </div>
   );

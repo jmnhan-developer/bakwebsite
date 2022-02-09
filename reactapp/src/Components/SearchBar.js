@@ -10,8 +10,8 @@ function SearchBar() {
 
   useEffect(() => {
     if (searchTerm !== "") {
-      const results = productList.filter((products) =>
-        products.title.toLowerCase().includes(searchTerm.toLowerCase())
+      const results = productList.filter((element) =>
+        element.title.toLowerCase().includes(searchTerm.toLowerCase())
       );
       setFilterAddList(results);
 
@@ -39,7 +39,7 @@ function SearchBar() {
       }}
       lighttheme="true"
       placeholder="Rechercher"
-      onChangeText={(val) => setSearchTerm(val)}
+      onChange={(val) => setSearchTerm(val)}
     />
   );
 }

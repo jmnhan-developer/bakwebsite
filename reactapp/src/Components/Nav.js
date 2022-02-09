@@ -11,6 +11,8 @@ function Navigation(props) {
   const [goToProfile, setGoToProfile] = useState(false);
   const [goToSell, setGoToSell] = useState(false);
 
+
+
   var infoUser = (
     <p
       style={{
@@ -31,20 +33,21 @@ function Navigation(props) {
     </p>
   );
 
-
+  let redirectToProfil = null
   if (goToProfile === true) {
     if (props.user.firstName) {
-      return <Redirect to="/ProfileScreen" />;
+      redirectToProfil = <Redirect to="/ProfileScreen" />;
     } else {
-      return <Redirect to="/signin" />;
+      redirectToProfil = <Redirect to="/signin" />;
     }
   }
-
+  
+  let redirectToSellScreen = null
   if (goToSell === true) {
     if (props.user.firstName) {
-      return <Redirect to="/sellScreen" />;
+      redirectToSellScreen = <Redirect to="/sellScreen" />;
     } else {
-      return <Redirect to="/signup" />;
+      redirectToSellScreen = <Redirect to="/signup" />;
     }
   }
 
@@ -91,7 +94,7 @@ function Navigation(props) {
           </Button>
         </Col>
         <Col xs={4} md={2}>
-          <Link to="/Signup" style={{ fontSize: 12, borderRadius: "blue" }}>
+          <Link to="/Signup" style={{ display: "flex", flexDirection: "row",  fontSize: 12, borderRadius: "blue" }}>
             Inscription | Connexion
           </Link>
         </Col>
@@ -99,6 +102,8 @@ function Navigation(props) {
           {infoUser}
         </Col>
       </Row>
+      {redirectToProfil}
+      {redirectToSellScreen}
     </div>
   );
 }

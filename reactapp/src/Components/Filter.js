@@ -145,8 +145,9 @@ function Filter(props) {
       </div>
     );
   }
+  let redirectToResultScreen = null
   if (goToResultScreen == true) {
-    return <Redirect to="/ResultScreen" />;
+    redirectToResultScreen = <Redirect to="/ResultScreen" />;
   }
 
 
@@ -266,6 +267,7 @@ function Filter(props) {
         {InputSubCat}
         {buttonValidation}
       </Row>
+      {redirectToResultScreen}
     </div>
   );
 }
