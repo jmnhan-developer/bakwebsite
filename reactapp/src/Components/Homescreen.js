@@ -36,7 +36,7 @@ function Homescreen({ token, onSubmitproduct }) {
             onSubmitproduct(e);
           }}
           alt=""
-          style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15 }}
+          style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15, boxShadow: '3px 3px 3px #D5DBDB' }}
         >
           <CardImg
             top

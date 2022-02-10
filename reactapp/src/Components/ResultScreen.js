@@ -57,6 +57,7 @@ function ResultScreen(props) {
               margin: 5,
               cursor: "pointer",
               borderRadius: 15,
+              boxShadow: "3px 3px 3px #D5DBDB",
             }}
           >
             <CardImg
@@ -97,7 +98,7 @@ function ResultScreen(props) {
           borderRadius: "blue",
         }}
       >
-        Aucun produit
+        Il n'y a aucun produit correspondant à votre recherche.
       </p>
     );
   }

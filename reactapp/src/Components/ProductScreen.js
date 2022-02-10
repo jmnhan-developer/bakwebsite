@@ -6,14 +6,24 @@ import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
-const ProductScreen = (props) => {
-  console.log(props.product);
+function ProductScreen ({user, product, onSubmitUserStatus}) {
+  // console.log(props.product);
+  console.log("---USER INFO DANS PRODUCTSCREEN---", user.firstName);
 
   const [goToPayment, setGoToPayment] = useState(false);
+  
+  var userStatus = "buyer"
 
+
+  let redirectToPayment = null;
   if (goToPayment === true) {
-    return <Redirect to="/PaiementScreen" />;
+    if (user.firstName) {
+      redirectToPayment = <Redirect to="/PaiementScreen" />;
+    } else {
+      redirectToPayment = <Redirect to="/signup" />;
+    }
   }
+
 
   return (
     <div style={{ margin: 10, marginBottom: 5 }}>
@@ -21,14 +31,14 @@ const ProductScreen = (props) => {
 
       <Filter />
 
-      <Row style={{marginLeft:1, marginRight:1 }}>
+      <Row style={{ marginLeft: 1, marginRight: 1 }}>
         <Col xs="12" lg="6">
           <Card>
             <CardImg
-              alt=""
+            
               top
               width="100px"
-              src={props.product.images}
+              src={product.images}
               alt="Card image cap"
             />
           </Card>
@@ -36,23 +46,23 @@ const ProductScreen = (props) => {
         <Col xs="12" lg="6">
           <Row>
             <p style={styleEcrit}>Catégorie du produit:</p>
-            <p style={styleBd}>{props.product.subcategory}</p>
+            <p style={styleBd}>{product.subcategory}</p>
           </Row>
           <Row>
             <p style={styleEcrit}>Marque: </p>
-            <p style={styleBd}>{props.product.brand}</p>
+            <p style={styleBd}>{product.brand}</p>
           </Row>
           <Row>
             <p style={styleEcrit}>État: </p>
-            <p style={styleBd}>{props.product.state}</p>
+            <p style={styleBd}>{product.state}</p>
           </Row>
           <Row>
             <p style={styleEcrit}>Description:</p>
-            <p style={styleBd}>{props.product.description}</p>
+            <p style={styleBd}>{product.description}</p>
           </Row>
           <Row style={{ alignItems: "center" }}>
             <p style={styleEcrit}>Prix: </p>
-            <p style={styleBd}>{props.product.price}€</p>
+            <p style={styleBd}>{product.price}€</p>
           </Row>
           <hr style={{ margin: 0 }} />
           <Row>
@@ -79,7 +89,8 @@ const ProductScreen = (props) => {
                 marginTop: 13,
               }}
               onClick={() => {
-                goToPayment(true);
+                setGoToPayment(true);
+                onSubmitUserStatus(userStatus)
               }}
             >
               Acheter
@@ -87,6 +98,7 @@ const ProductScreen = (props) => {
           </Row>
         </Col>
       </Row>
+      {redirectToPayment}
     </div>
   );
 };
@@ -95,7 +107,15 @@ var styleEcrit = { fontSize: 12, color: "grey", width: "30%", marginBottom: 5 };
 var styleBd = { fontSize: 12, color: "17a2b8", marginBottom: 5 };
 
 function mapStateToProps(state) {
-  return { product: state.product };
+  return { user: state.machin, product: state.product };
 }
 
-export default connect(mapStateToProps, null)(ProductScreen);
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitUserStatus: function (userStatus) {
+      dispatch({type:'userisabuyer', userStatus:userStatus})
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductScreen);

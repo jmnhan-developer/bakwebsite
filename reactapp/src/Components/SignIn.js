@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
-function SignIn({ onSubmitToken, onSubmitDatas }) {
+function SignIn({ onSubmitToken, onSubmitDatas, userStatus }) {
   
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,8 +61,12 @@ function SignIn({ onSubmitToken, onSubmitDatas }) {
     }
   };
 
-  if (userExists) {
-    return <Redirect to="/" />;
+  if (userExists === true) {
+    if (userStatus ==='buyer'){
+      return <Redirect to="/paiementscreen" />;
+    } else {
+      return <Redirect to="/" />;
+    }
   }
 
   var tabErrorsSignin = listErrorsSignin.map((error, i) => {
@@ -151,6 +155,10 @@ var styleRow = {
   marginRight: 10,
 };
 
+function mapStateToProps(state) {
+  return { userStatus: state.userStatus };
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitToken: function (token) {
@@ -163,4 +171,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
