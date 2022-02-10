@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
-function SignUp({ onSubmitToken, onSubmitDatas }) {
+function SignUp({ onSubmitToken, onSubmitDatas, userStatus }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setMail] = useState("");
@@ -53,8 +53,12 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
     }
   };
 
-  if (userExists) {
-    return <Redirect to="/" />;
+  if (userExists === true) {
+    if (userStatus === "buyer") {
+      return <Redirect to="/paiementscreen" />;
+    } else {
+      return <Redirect to="/" />
+    }
   }
 
   var tabErrorsSignup = listErrorsSignup.map((error, i) => {
@@ -208,6 +212,9 @@ function SignUp({ onSubmitToken, onSubmitDatas }) {
   );
 }
 
+function mapStateToProps(state) {
+  return { userStatus: state.userStatus };
+}
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitToken: function (token) {
@@ -228,4 +235,4 @@ var styleRow = {
   marginRight: 10,
 };
 
-export default connect(null, mapDispatchToProps)(SignUp);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

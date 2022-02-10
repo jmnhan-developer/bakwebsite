@@ -71,7 +71,7 @@ function Homescreen({ token, onSubmitproduct }) {
 
       <Filter />
 
-      <Row>
+      <Row style={{ marginLeft: 1, marginRight: 1 }}>
         <Col
           xs={12}
           style={{
