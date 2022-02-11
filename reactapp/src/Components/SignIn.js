@@ -61,12 +61,12 @@ function SignIn({ onSubmitToken, onSubmitDatas, userStatus }) {
     }
   };
 
-  if (userExists === true) {
-    if (userStatus ==='buyer'){
-      return <Redirect to="/paiementscreen" />;
-    } else {
-      return <Redirect to="/" />;
-    }
+  if (userExists === true && userStatus === "buyer") {
+    return <Redirect to="/paiementscreen" />;
+  } else if (userExists === true && userStatus === "seller") {
+    return <Redirect to="/sellscreen" />;
+  } else if (userExists === true) {
+    return <Redirect to="/" />;
   }
 
   var tabErrorsSignin = listErrorsSignin.map((error, i) => {
@@ -157,18 +157,15 @@ var styleRow = {
 
 function mapStateToProps(state) {
   return { userStatus: state.userStatus };
-};
-
+}
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitToken: function (token) {
       dispatch({ type: "informationFromSignIn", token: token });
     },
-
     onSubmitDatas: function (argument) {
       dispatch({ type: "userInfoFromSignIn", user: argument });
     },
   };
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

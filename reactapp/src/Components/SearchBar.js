@@ -21,8 +21,8 @@ function SearchBar() {
       setFilterAddList(productList);
     }
 
-    console.log("---SEARCHTERM---", searchTerm)
-    console.log("---PRODUCTLIST---", productList)
+    // console.log("---SEARCHTERM---", searchTerm)
+    // console.log("---PRODUCTLIST---", productList)
     
   }, [searchTerm]);
 

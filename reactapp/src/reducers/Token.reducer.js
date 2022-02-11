@@ -8,7 +8,7 @@ export default function (token = "", action) {
 
   if (action.type === "informationFromSignIn") {
     var newToken = action.token;
-    console.log("Token from reducer from SignIn", newToken);
+    console.log("---TOKEN DANS TOKEN.REDUCER QUI VIENT DE SIGNIN---", newToken);
     return newToken;
   }
 

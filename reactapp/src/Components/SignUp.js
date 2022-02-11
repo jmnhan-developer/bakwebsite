@@ -53,12 +53,12 @@ function SignUp({ onSubmitToken, onSubmitDatas, userStatus }) {
     }
   };
 
-  if (userExists === true) {
-    if (userStatus === "buyer") {
-      return <Redirect to="/paiementscreen" />;
-    } else {
-      return <Redirect to="/" />
-    }
+  if (userExists === true && userStatus === "buyer") {
+    return <Redirect to="/paiementscreen" />;
+  } else if (userExists === true && userStatus === "seller") {
+    return <Redirect to="/sellscreen" />;
+  } else if (userExists === true) {
+    return <Redirect to="/" />;
   }
 
   var tabErrorsSignup = listErrorsSignup.map((error, i) => {

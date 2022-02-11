@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import SearchBar from "./SearchBar";
 
 
-function Navigation(props) {
-  console.log("-----LES INFO DU USER DANS LA NAV-----", props.user);
+function Navigation({user, token, onSubmitUserStatus}) {
+  console.log("-----LES INFO DU USER DANS LA NAV-----", user);
 
   const [goToProfile, setGoToProfile] = useState(false);
   const [goToSell, setGoToSell] = useState(false);
@@ -29,13 +29,13 @@ function Navigation(props) {
         setGoToProfile(true)
       }}
     >
-      Bonjour {props.user.firstName} !
+      Bonjour {user.firstName} !
     </p>
   );
 
   let redirectToProfil = null
   if (goToProfile === true) {
-    if (props.user.firstName) {
+    if (user.firstName) {
       redirectToProfil = <Redirect to="/ProfileScreen" />;
     } else {
       redirectToProfil = <Redirect to="/signin" />;
@@ -44,12 +44,19 @@ function Navigation(props) {
   
   let redirectToSellScreen = null
   if (goToSell === true) {
-    if (props.user.firstName) {
+    if (user.firstName) {
       redirectToSellScreen = <Redirect to="/sellScreen" />;
     } else {
       redirectToSellScreen = <Redirect to="/signup" />;
     }
   }
+
+  var userStatus = "seller"
+
+  // let redirectToSellScreen = null
+  // if (goToSell === true) {
+  //   redirectToSellScreen = <Redirect to="/sellScreen" />
+  // }
 
   return (
     <div>
@@ -87,6 +94,7 @@ function Navigation(props) {
               borderColor: "#16bfc4",
             }}
             onClick={() => {
+              onSubmitUserStatus(userStatus)
               setGoToSell(true);
             }}
           >
@@ -109,6 +117,14 @@ function Navigation(props) {
 }
 
 function mapStateToProps(state) {
-  return { user: state.machin };
+  return { user: state.machin, token: state.token, userStatus: state.userStatus };
 }
-export default connect(mapStateToProps, null)(Navigation);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitUserStatus: function (userStatus) {
+      dispatch({type:'userisabuyer', userStatus:userStatus})
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

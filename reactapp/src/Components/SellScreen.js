@@ -5,11 +5,9 @@ import { connect } from "react-redux";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
-function SellScreen(props) {
-  console.log(
-    "---EST CE QU'ON A BIEN LE TOKEN DANS SELLSCREEN----",
-    props.token
-  );
+function SellScreen({ user, token, onSubmitUserStatus }) {
+  console.log("---EST CE QU'ON LE TOKEN DANS SELLSCREEN----", token);
+  console.log("---EST CE QU'ON USER DANS SELLSCREEN----", user);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -17,7 +15,6 @@ function SellScreen(props) {
   const [price, setPrice] = useState(0);
   const [url, setUrl] = useState("");
   const [state, setState] = useState("");
-  const [token, setToken] = useState("");
 
   const [category, setCategory] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(false);
@@ -31,22 +28,25 @@ function SellScreen(props) {
     const data = await fetch(`/articles/create-article`, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `urlFromFront=${url}&titleFromFront=${title}&descriptionFromFront=${description}&brandFromFront=${brand}&priceFromFront=${price}&categoryFromFront=${category}&subcategoryFromFront=${subCategory}&stateFromFront=${state}&sellerToken=${props.token}`
+      body: `urlFromFront=${url}&titleFromFront=${title}&descriptionFromFront=${description}&brandFromFront=${brand}&priceFromFront=${price}&categoryFromFront=${category}&subcategoryFromFront=${subCategory}&stateFromFront=${state}&sellerToken=${token}`,
     });
-    
+
     const body = await data.json();
 
     if (body.result === true) {
-      setIsValidated(true)
+      setIsValidated(true);
     } else {
-      setListErrorsCreateArticle(body.error)
+      setListErrorsCreateArticle(body.error);
     }
   };
 
   if (isValidated === true) {
-    return <Redirect to="/" />;
+    if (token) {
+      return <Redirect to="/profilescreen" />;
+    } else {
+      return <Redirect to="/signup" />;
+    }
   }
-
   var subCategory1 = [
     { subcategory: "Sélectionner un produit" },
     { subcategory: "Sièges Auto" },
@@ -146,6 +146,8 @@ function SellScreen(props) {
       </Input>
     );
   }
+
+  var userStatus = "seller";
 
   var tabErrorsCreateArticle = listErrorsCreateArticle.map((error, i) => {
     return <p style={{ fontSize: 12, color: "red" }}>{error}</p>;
@@ -323,6 +325,7 @@ function SellScreen(props) {
             marginBottom: 20,
           }}
           onClick={() => {
+            onSubmitUserStatus(userStatus);
             handleClick();
           }}
         >
@@ -343,7 +346,14 @@ var styleRow = {
 };
 
 function mapStateToProps(state) {
-  return { token: state.token };
+  return { user: state.machin, token: state.token };
 }
 
-export default connect(mapStateToProps, null)(SellScreen);
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitUserStatus: function (userStatus) {
+      dispatch({ type: "userisaseller", userStatus: userStatus });
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SellScreen);

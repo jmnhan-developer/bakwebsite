@@ -18,6 +18,8 @@ function Homescreen({ token, onSubmitproduct }) {
   const [productList, setProductList] = useState([]);
   const [goToProduct, setGoToProduct] = useState(false);
 
+  
+
   useEffect(() => {
     const findProducts = async () => {
       const data = await fetch(`/articles/get-all-articles`);

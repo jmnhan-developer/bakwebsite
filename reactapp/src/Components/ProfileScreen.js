@@ -16,9 +16,9 @@ import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 import { connect } from "react-redux";
 
-function Profile(props) {
-  console.log("EST CE QU'ON A BIEN PROPS.USER.TOKEN SUR PROFILE", props.user);
-  console.log("---EST CE QU'ON A BIEN LE TOKEN---", props.token)
+function Profile({user, token, onSubmitproduct}) {
+  console.log("EST CE QU'ON A BIEN USER.TOKEN SUR PROFILE", user);
+  console.log("---EST CE QU'ON A BIEN LE TOKEN---", token)
 
 
   const [goToProfileUpdate, setGoToProfileUpdate] = useState(false);
@@ -28,7 +28,7 @@ function Profile(props) {
   useState(() => {
     const findMyProducts = async () => {
       const data = await fetch(
-        `/articles/get-article-by-seller?sellerToken=${props.token}`
+        `/articles/get-article-by-seller?sellerToken=${token}`
       );
       const body = await data.json();
       setMyProductList(body.products);
@@ -37,7 +37,7 @@ function Profile(props) {
 
     };
     findMyProducts();
-  }, [props.token]);
+  }, [user.token]);
   
   let myProducts = myProductList.map((e, i) => {
     return (
@@ -45,7 +45,7 @@ function Profile(props) {
         <Card
           onClick={() => {
             setGoToProduct(true);
-            props.onSubmitproduct(e);
+            onSubmitproduct(e);
           }}
           alt=""
           style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15 }}
@@ -105,7 +105,7 @@ function Profile(props) {
           <Input
             style={{ fontSize: 12 }}
             name="firstName"
-            value={props.user.firstName}
+            value={user.firstName}
           />
         </Col>
         <Col xs="12" md="6" style={styleCol}>
@@ -113,7 +113,7 @@ function Profile(props) {
           <Input
             style={{ fontSize: 12 }}
             name="lastName"
-            value={props.user.lastName}
+            value={user.lastName}
           />
         </Col>
       </Row>
@@ -124,7 +124,7 @@ function Profile(props) {
           <Input
             style={{ fontSize: 12 }}
             name="email"
-            value={props.user.email}
+            value={user.email}
           />
         </Col>
         <Col xs="12" md="6" style={styleCol}>
@@ -132,7 +132,7 @@ function Profile(props) {
           <Input
             style={{ fontSize: 12 }}
             name="address"
-            value={props.user.address}
+            value={user.address}
           />
         </Col>
       </Row>
@@ -143,12 +143,12 @@ function Profile(props) {
           <Input
             style={{ fontSize: 12 }}
             name="postalCode"
-            value={props.user.postalCode}
+            value={user.postalCode}
           />
         </Col>
         <Col xs="12" md="6" style={styleCol}>
           <p style={styleP}>Ville:</p>
-          <Input style={{ fontSize: 12 }} name="city" value={props.user.city} />
+          <Input style={{ fontSize: 12 }} name="city" value={user.city} />
         </Col>
       </Row>
       <Row style={styleRowDisplayProfile}>
