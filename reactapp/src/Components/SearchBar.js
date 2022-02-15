@@ -1,47 +1,62 @@
 import React, { useState, useEffect } from "react";
-// import {FontAwesomeIcon} from '@fontawesome/react-fontawesome'
-// import {search} from '@fontawesome/free-solid-svg-icons'
-// import { FontAwesome } from '@expo/vector-icons';
+import { Button, Row, Col, div } from "reactstrap";
+import { connect } from "react-redux";
 
-function SearchBar() {
-  const [productList, setProductList] = useState([]);
-  const [filterAddList, setFilterAddList] = useState([]);
+function SearchBar({ onSubmitSearchTerm }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  useEffect(() => {
+  var handleSubmitSearch = async () => {
     if (searchTerm !== "") {
-      const results = productList.filter((element) =>
-        element.title.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      setFilterAddList(results);
-
-      console.log("---RESULTS---", results)
-      
-    } else {
-      setFilterAddList(productList);
+      onSubmitSearchTerm(searchTerm);
+      console.log("---C'EST QUOI SEARCHTERM DANS SEARCHBAR---", searchTerm)
     }
-
-    // console.log("---SEARCHTERM---", searchTerm)
-    // console.log("---PRODUCTLIST---", productList)
-    
-  }, [searchTerm]);
+  };
 
   return (
-    <input
-      style={{
-        backgroundColor: "#F8F9F9",
-        border: "none",
-        marginLeft: 10,
-        width: 400,
-        height: 30,
-        outline: "none",
-        fontSize: 12,
-      }}
-      lighttheme="true"
-      placeholder="Rechercher"
-      onChange={(val) => setSearchTerm(val)}
-    />
+    <div style={{display:"flex", flexDirection:"row"}}>
+      <input
+        style={{
+          backgroundColor: "#F8F9F9",
+          border: "none",
+          marginLeft: 10,
+          width: 200,
+          height: 30,
+          outline: "none",
+          fontSize: 12,
+        }}
+        type="text"
+        name="searchterme"
+        id="searchterm"
+        lighttheme="true"
+        placeholder="Rechercher"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <Button
+        type="button"
+        style={{
+          fontSize: 12,
+          fontWeight: "bold",
+          color: "#16bfc4",
+          backgroundColor: "#F8F9F9",
+          border: "none",
+          marginLeft:1
+        }}
+        onClick={() => {
+          handleSubmitSearch();
+        }}
+      >
+        Rechercher
+      </Button>
+    </div>
   );
 }
 
-export default SearchBar;
+function mapDispatchToProps(dispatch) {
+  return {
+    onSubmitSearchTerm: function (searchTerm) {
+      dispatch({ type: "searchTermFromSearchBar", searchTerm: searchTerm });
+    },
+  };
+}
+export default connect(null, mapDispatchToProps)(SearchBar);

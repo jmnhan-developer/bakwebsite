@@ -290,7 +290,7 @@ const styleButton = {
   color: "#16bfc4",
   backgroundColor: "#ffffff",
   border: "none",
-  margin: 3,
+  margin: 1,
   width: 110,
   height: 30,
 };

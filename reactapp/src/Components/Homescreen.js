@@ -14,24 +14,42 @@ import Col from "react-bootstrap/Col";
 import Navigation from "./Nav.js";
 import Filter from "./Filter.js";
 
-function Homescreen({ token, onSubmitproduct }) {
+function Homescreen({ token, onSubmitproduct, searchTerm }) {
   const [productList, setProductList] = useState([]);
   const [goToProduct, setGoToProduct] = useState(false);
+  const [filterAddList, setFilterAddList] = useState([]);
+
 
   
+console.log ("---SEARCHTERM DANS HOMESCREEN---", searchTerm)
 
   useEffect(() => {
     const findProducts = async () => {
       const data = await fetch(`/articles/get-all-articles`);
       const body = await data.json();
       setProductList(body.products);
+      setFilterAddList(body.products);
     };
     findProducts();
   }, []);
 
-  let allArticles = productList.map((e, i) => {
+  useEffect(() => {
+      if (searchTerm !== "") {
+        const results = productList.filter((products) =>
+          products.title.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        console.log("---RESULTS---", results)
+        setFilterAddList(results);
+      } else {
+        setFilterAddList(productList);
+      }
+    }, [searchTerm]);
+
+
+
+  let allArticles = filterAddList.map((e, i) => {
     return (
-      <Col xs="6" md="4" lg="3" xl="2" style={{paddingLeft: 0, paddingRight: 0}}> 
+      <Col key={i} xs="6" md="4" lg="3" xl="2" style={{paddingLeft: 0, paddingRight: 0}}> 
         <Card
           onClick={() => {
             setGoToProduct(true);
@@ -94,7 +112,7 @@ function Homescreen({ token, onSubmitproduct }) {
 }
 
 function mapStateToProps(state) {
-  return { token: state.token };
+  return { token: state.token, searchTerm: state.searchTerm };
 }
 function mapDispatchToProps(dispatch) {
   return {

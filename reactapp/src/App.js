@@ -16,11 +16,12 @@ import machin from './reducers/userInfo.reducer.js'
 import product from './reducers/Article.reducer.js'
 import subcat from './reducers/Filtre.reducer.js'
 import userStatus from'./reducers/userStatus.reducer.js'
+import searchTerm from'./reducers/searchTerm.reducer.js'
 import { Provider } from 'react-redux'
 
 import { createStore, combineReducers } from 'redux';
 
-const store = createStore(combineReducers({ token, product, subcat, machin, userStatus }));
+const store = createStore(combineReducers({ token, product, subcat, machin, userStatus, searchTerm }));
 
 function App() {
 

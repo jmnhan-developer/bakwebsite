@@ -17,7 +17,7 @@ function Navigation({user, token, onSubmitUserStatus}) {
     <p
       style={{
         display: "flex",
-        alignContent: "center",
+        justifyContent: "center",
         margin: 0,
         padding: 0,
         fontSize: 12,
@@ -69,18 +69,18 @@ function Navigation({user, token, onSubmitUserStatus}) {
           marginBottom: 2,
         }}
       >
-        <Col xs={4} md={2} style={{ paddingLeft: 15 }}>
+        <Col xs={4} md={1} style={{ paddingLeft: 15 }}>
           <Link to="/">
             <img
               src="./logobak.png"
-              width="100"
-              height="100"
+              width="70"
+              height="70"
               className="d-inline-block align-top"
               alt="logo"
             />
           </Link>
         </Col>
-        <Col xs={6} md={5} style={{ display: "flex" }}>
+        <Col xs={6} md={6} style={{ display: "flex", justifyContent:"center" }}>
           <SearchBar />
         </Col>
         <Col xs={4} md={1}>
@@ -89,9 +89,9 @@ function Navigation({user, token, onSubmitUserStatus}) {
             style={{
               fontSize: 12,
               fontWeight: "bold",
-              color: "#16bfc4",
-              backgroundColor: "white",
-              borderColor: "#16bfc4",
+              color: "white",
+              backgroundColor: "#16bfc4",
+              border: "none",
             }}
             onClick={() => {
               onSubmitUserStatus(userStatus)
@@ -102,7 +102,7 @@ function Navigation({user, token, onSubmitUserStatus}) {
           </Button>
         </Col>
         <Col xs={4} md={2}>
-          <Link to="/Signup" style={{ display: "flex", flexDirection: "row",  fontSize: 12, borderRadius: "blue" }}>
+          <Link to="/Signup" style={{ display: "flex", justifyContent: "center",  fontSize: 12, borderRadius: "blue" }}>
             Inscription | Connexion
           </Link>
         </Col>

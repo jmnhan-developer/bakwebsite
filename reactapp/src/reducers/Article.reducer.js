@@ -1,5 +1,6 @@
 export default function (product = null, action) {
   if (action.type === "productSelectedFromHomeScreen") {
+    
     console.log("----ACTION.PRODUCT DANS ARTICLE REDUCER PROVENANT DU HOMESCREEN----", action.product);
 
     return action.product;
