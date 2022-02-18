@@ -136,7 +136,7 @@ function mapDispatchToProps(dispatch) {
       dispatch({ type: "userisabuyer", userStatus: userStatus });
     },
     onSubmitSearchTerm: function (searchTerm) {
-      dispatch({ type: "searchTermFromSearchBar", searchTerm: searchTerm });
+      dispatch({ type: "searchTermEmpty", searchTerm: searchTerm });
     },
   };
 }
