@@ -4,13 +4,11 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import SearchBar from "./SearchBar";
 
-
-function Navigation({user, token, onSubmitUserStatus}) {
+function Navigation({ user, token, onSubmitUserStatus, onSubmitSearchTerm }) {
   console.log("-----LES INFO DU USER DANS LA NAV-----", user);
 
   const [goToProfile, setGoToProfile] = useState(false);
   const [goToSell, setGoToSell] = useState(false);
-
 
 
   var infoUser = (
@@ -26,14 +24,14 @@ function Navigation({user, token, onSubmitUserStatus}) {
         cursor: "pointer",
       }}
       onClick={() => {
-        setGoToProfile(true)
+        setGoToProfile(true);
       }}
     >
       Bonjour {user.firstName} !
     </p>
   );
 
-  let redirectToProfil = null
+  let redirectToProfil = null;
   if (goToProfile === true) {
     if (user.firstName) {
       redirectToProfil = <Redirect to="/ProfileScreen" />;
@@ -41,8 +39,8 @@ function Navigation({user, token, onSubmitUserStatus}) {
       redirectToProfil = <Redirect to="/signin" />;
     }
   }
-  
-  let redirectToSellScreen = null
+
+  let redirectToSellScreen = null;
   if (goToSell === true) {
     if (user.firstName) {
       redirectToSellScreen = <Redirect to="/sellScreen" />;
@@ -51,12 +49,7 @@ function Navigation({user, token, onSubmitUserStatus}) {
     }
   }
 
-  var userStatus = "seller"
-
-  // let redirectToSellScreen = null
-  // if (goToSell === true) {
-  //   redirectToSellScreen = <Redirect to="/sellScreen" />
-  // }
+  var userStatus = "seller";
 
   return (
     <div>
@@ -70,7 +63,7 @@ function Navigation({user, token, onSubmitUserStatus}) {
         }}
       >
         <Col xs={4} md={1} style={{ paddingLeft: 15 }}>
-          <Link to="/">
+          <Link to="/" onClick={() => onSubmitSearchTerm("")}>
             <img
               src="./logobak.png"
               width="70"
@@ -80,7 +73,11 @@ function Navigation({user, token, onSubmitUserStatus}) {
             />
           </Link>
         </Col>
-        <Col xs={6} md={6} style={{ display: "flex", justifyContent:"center" }}>
+        <Col
+          xs={6}
+          md={6}
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <SearchBar />
         </Col>
         <Col xs={4} md={1}>
@@ -94,7 +91,7 @@ function Navigation({user, token, onSubmitUserStatus}) {
               border: "none",
             }}
             onClick={() => {
-              onSubmitUserStatus(userStatus)
+              onSubmitUserStatus(userStatus);
               setGoToSell(true);
             }}
           >
@@ -102,7 +99,15 @@ function Navigation({user, token, onSubmitUserStatus}) {
           </Button>
         </Col>
         <Col xs={4} md={2}>
-          <Link to="/Signup" style={{ display: "flex", justifyContent: "center",  fontSize: 12, borderRadius: "blue" }}>
+          <Link
+            to="/Signup"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              fontSize: 12,
+              borderRadius: "blue",
+            }}
+          >
             Inscription | Connexion
           </Link>
         </Col>
@@ -112,19 +117,28 @@ function Navigation({user, token, onSubmitUserStatus}) {
       </Row>
       {redirectToProfil}
       {redirectToSellScreen}
+      {/* {redirectToHomescreen} */}
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  return { user: state.machin, token: state.token, userStatus: state.userStatus };
+  return {
+    user: state.machin,
+    token: state.token,
+    userStatus: state.userStatus,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     onSubmitUserStatus: function (userStatus) {
-      dispatch({type:'userisabuyer', userStatus:userStatus})
-    }
-  }
+      dispatch({ type: "userisabuyer", userStatus: userStatus });
+    },
+    onSubmitSearchTerm: function (searchTerm) {
+      dispatch({ type: "searchTermFromSearchBar", searchTerm: searchTerm });
+    },
+  };
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

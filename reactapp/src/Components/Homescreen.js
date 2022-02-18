@@ -6,7 +6,7 @@ import {
   CardBody,
   CardTitle,
   CardSubtitle,
-  Row
+  Row,
 } from "reactstrap";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -19,9 +19,7 @@ function Homescreen({ token, onSubmitproduct, searchTerm }) {
   const [goToProduct, setGoToProduct] = useState(false);
   const [filterAddList, setFilterAddList] = useState([]);
 
-
-  
-console.log ("---SEARCHTERM DANS HOMESCREEN---", searchTerm)
+  console.log("---SEARCHTERM DANS HOMESCREEN---", searchTerm);
 
   useEffect(() => {
     const findProducts = async () => {
@@ -34,29 +32,41 @@ console.log ("---SEARCHTERM DANS HOMESCREEN---", searchTerm)
   }, []);
 
   useEffect(() => {
-      if (searchTerm !== "") {
-        const results = productList.filter((products) =>
-          products.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        console.log("---RESULTS---", results)
-        setFilterAddList(results);
-      } else {
-        setFilterAddList(productList);
-      }
-    }, [searchTerm]);
-
-
+    if (searchTerm !== "") {
+      const results = productList.filter((products) =>
+        products.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      console.log("---RESULTS---", results);
+      setFilterAddList(results);
+    } else {
+      setFilterAddList(productList);
+    }
+  }, [searchTerm]);
 
   let allArticles = filterAddList.map((e, i) => {
     return (
-      <Col key={i} xs="6" md="4" lg="3" xl="2" style={{paddingLeft: 0, paddingRight: 0}}> 
+      <Col
+        key={i}
+        xs="6"
+        md="4"
+        lg="3"
+        xl="2"
+        style={{ paddingLeft: 0, paddingRight: 0 }}
+      >
         <Card
           onClick={() => {
             setGoToProduct(true);
             onSubmitproduct(e);
           }}
           alt=""
-          style={{ paddingLeft: 0, paddingRight: 0, margin: 5, cursor: "pointer", borderRadius: 15, boxShadow: '3px 3px 3px #D5DBDB' }}
+          style={{
+            paddingLeft: 0,
+            paddingRight: 0,
+            margin: 5,
+            cursor: "pointer",
+            borderRadius: 15,
+            boxShadow: "3px 3px 3px #D5DBDB",
+          }}
         >
           <CardImg
             top
@@ -67,7 +77,7 @@ console.log ("---SEARCHTERM DANS HOMESCREEN---", searchTerm)
           />
           <hr style={{ marginBottom: 2 }} />
           <CardBody>
-          <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
+            <CardTitle style={{ fontSize: 12, fontWeight: "bold" }}>
               {e.title}
             </CardTitle>
             <CardSubtitle style={{ fontSize: 12 }} className="mb-2 text-muted">
@@ -86,7 +96,7 @@ console.log ("---SEARCHTERM DANS HOMESCREEN---", searchTerm)
   }
 
   return (
-    <div style={{margin:10, marginBottom: 5 }}>
+    <div style={{ margin: 10, marginBottom: 5 }}>
       <Navigation />
 
       <Filter />
@@ -97,9 +107,9 @@ console.log ("---SEARCHTERM DANS HOMESCREEN---", searchTerm)
           style={{
             display: "flex",
             justifyContent: "center",
-            padding: 5, 
+            padding: 5,
             marginTop: 15,
-            marginBottom: 15
+            marginBottom: 15,
           }}
         >
           <img width="100%" src="./chambrebebe.png" alt="chambrebebe" />

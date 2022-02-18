@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Button, Row, Col, div } from "reactstrap";
+import React, { useState } from "react";
+import { Button } from "reactstrap";
 import { connect } from "react-redux";
 
 function SearchBar({ onSubmitSearchTerm }) {
